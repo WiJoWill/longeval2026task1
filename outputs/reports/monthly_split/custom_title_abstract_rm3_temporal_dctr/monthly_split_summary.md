@@ -2,6 +2,6 @@
 
 | Split | Date Field | Months | Queries | Docs | nDCG@10 | nDCG@1000 | MAP | Recall@100 | Recall@1000 |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| march_only | updatedDate | 3 | 86 | 48183 | 0.0089 | 0.0749 | 0.0141 | 0.3508 | 0.3508 |
-| march_april | updatedDate | 3,4 | 95 | 100241 | 0.0234 | 0.1108 | 0.0255 | 0.3836 | 0.5025 |
-| march_april_may | updatedDate | 3,4,5 | 100 | 200527 | 0.0171 | 0.1249 | 0.0171 | 0.0648 | 0.6377 |
+| march_only | publishedDate | 3 | 74 | 173031 | 0.0052 | 0.0591 | 0.0062 | 0.0338 | 0.3739 |
+| march_april | publishedDate | 3,4 | 92 | 343421 | 0.0026 | 0.0772 | 0.0047 | 0.0333 | 0.5299 |
+| march_april_may | publishedDate | 3,4,5 | 96 | 525293 | 0.0128 | 0.0982 | 0.0136 | 0.0303 | 0.6042 |
