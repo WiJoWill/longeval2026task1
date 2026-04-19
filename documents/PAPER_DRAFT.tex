@@ -1,0 +1,240 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Core packages
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+% Paragraphs
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.7\baselineskip}
+\emergencystretch=2em
+
+\title{Dynamic Scientific Retrieval with Temporal-Citation Integration and Adaptive Update Strategies}
+\author{Author Name}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Scientific retrieval is inherently dynamic: the collection grows continuously, the usefulness of documents changes over time, and citation signals evolve after publication. This paper studies three connected questions in LongEval-Sci: which retrieval foundation is most reliable, how temporal and citation evidence should enter ranking, and how a system should update under continuous collection growth. We build a unified evaluation framework spanning sparse retrieval, dense retrieval, RM3 expansion, reranking, reciprocal rank fusion, temporal overlays, citation-aware overlays, router-based integration, and additive score integration. Our current results show that strong full-text sparse retrieval provides the best single-system foundation, while lexical-dense fusion offers the most robust candidate pool under collection growth. Based on this finding, we argue that temporal and citation signals should be integrated in a controlled manner rather than applied uniformly to all queries. We further frame long-term scientific retrieval as a dynamic information retrieval problem requiring multiple update mechanisms, including but not limited to periodic reindexing.
+\end{abstract}
+
+\section{Introduction}
+
+Scientific corpora grow continuously as new papers, revisions, and citation links appear over time. In this setting, retrieval quality depends not only on lexical or semantic relevance, but also on document freshness, temporal intent, and the evolving citation structure of the literature. A document that is highly relevant at one time point may become less useful later, while a previously marginal paper may become central as citations accumulate or a topic shifts.
+
+LongEval-Sci provides a suitable benchmark for studying retrieval robustness under collection evolution. Unlike purely static evaluation settings, it allows us to examine how ranking behavior changes as the corpus expands and as temporal context becomes increasingly important. Prior LongEval work emphasizes that temporal persistence is a core challenge in IR evaluation, and that model quality should be studied as test data diverges from training data over time \cite{cancellieri_longeval_2025}. In this scenario, comparing systems only by a single static nDCG score is insufficient. A more complete analysis should examine at least three aspects: the retrieval foundation, the integration of temporal and citation signals, and the mechanisms used to keep the system updated over time.
+
+This paper follows that logic. We first compare a broad family of retrieval systems, from official baselines to stronger customized full-text and fusion variants, in order to identify a reliable base retrieval foundation. We then investigate how temporal and citation signals should be incorporated into ranking, contrasting direct overlay methods with router-based and additive integration strategies. Finally, we extend the discussion from effectiveness to long-term maintenance by studying collection growth and outlining an adaptive update framework that goes beyond periodic full reindexing.
+
+\paragraph{Reserved contribution.}
+The update-trigger analysis remains part of the paper plan, but it is intentionally left as future work in this version. Later versions should expand this part into a full decision framework for when to do nothing, when to apply lightweight reranking or fusion refreshes, and when to rebuild or retrain heavier retrieval components.
+
+\section{Related Work}
+
+\subsection{Longitudinal IR and LongEval}
+
+LongEval frames retrieval evaluation as a longitudinal problem rather than a single static ranking task. The LongEval lab motivates this setting by emphasizing temporal persistence: retrieval models should be evaluated not only by immediate effectiveness, but also by how their performance changes as data drifts over time \cite{cancellieri_longeval_2025}. This point is especially important for LongEval-Sci, where scientific collections evolve through new publications, changed terminology, and accumulating citation evidence.
+
+Our work follows this perspective by separating static effectiveness from robustness under collection growth. The whole-train evaluation measures static quality on the available development data, while monthly cumulative evaluation and temporal-change metrics examine how system behavior changes as the simulated corpus expands.
+
+\subsection{Scientific Retrieval Baselines}
+
+The official LongEval-Sci baselines include a PyTerrier BM25 pipeline and a dense retrieval pipeline based on Qwen embeddings. These systems provide the anchor points for our analysis. Prior participant work in LongEval-Sci also suggests that dense retrieval combined with cross-encoder reranking can be effective for scientific retrieval, especially when using compact title-and-abstract document representations rather than applying full text uniformly to every stage \cite{agh2025}. At the same time, classic inverted-index retrieval remains a strong and efficient foundation for large text collections \cite{zobel_inverted_2006}.
+
+This motivates our two-view design: title+abstract retrieval is used for compact lexical and dense matching, while full text is preserved as a strong sparse retrieval foundation. Rather than treating field choice as a minor preprocessing detail, we treat it as a central retrieval design decision.
+
+\subsection{Fusion, Query Expansion, and Reranking}
+
+Our non-temporal improvements are motivated by three established IR techniques. Reciprocal Rank Fusion (RRF) combines heterogeneous ranked lists without assuming score comparability, which is useful when merging lexical and dense retrieval outputs \cite{cormack2009rrf}. RM3-style pseudo-relevance feedback builds on relevance modeling to reformulate queries using top-ranked documents and address vocabulary mismatch \cite{lavrenko2001relevance}. Neural reranking can then sharpen top-ranked candidates when the first-stage retrieval pool has sufficient recall.
+
+The OpenWebSearch LongEval systems are particularly relevant because they also follow an incremental-improvement philosophy. Their LongEval submissions use historical evidence, keyquery-style reformulation, clustering, reranking, and intent-aware choices on top of existing rankings rather than replacing the entire retrieval stack \cite{alexander2024openwebsearch,alexander2025openwebsearch}. We leverage the non-temporal parts of this idea through RM3, RRF, and reranking over existing first-stage runs. This is also why our RRF implementation operates at the run level: it fuses existing outputs and does not rebuild indices.
+
+\subsection{Temporal Features, Citation Signals, and Update Policies}
+
+Temporal retrieval work shows that freshness and relevance should often be optimized jointly rather than as independent objectives. Dai et al. propose learning to rank for freshness and relevance with query-dependent temporal characteristics \cite{dai_learning_2011}. TempRALM similarly argues that semantic relevance alone is insufficient for temporally sensitive queries and shows that temporal relevance can be added without replacing or recalculating the underlying retrieval index \cite{gade_its_2024}. This directly supports our overlay design: temporal evidence should be added after retrieval unless there is a compelling reason to rebuild the first-stage representation.
+
+Citation evidence provides another source of temporal scientific signal. Citation-based and co-citation-based retrieval methods show that citation structure can improve scientific literature search and can identify relevant papers beyond plain lexical matching \cite{janssens2015cocites,janssens2020validation,belter2017ranking,bascur2023citationclusters}. We therefore treat citation counts, recent citations, citation velocity, and foundational/emerging citation patterns as reranking-time features rather than as a new retrieval index.
+
+Finally, our planned update-trigger analysis is connected to dynamic indexing work. Incremental inverted indexing and immediate-access dynamic indexing show that retrieval systems can be maintained under document growth without always rebuilding from scratch \cite{brown_fast_nodate,asadi_fast_2013,moffat_efficient_2023}. Recent work on streaming vector-index maintenance similarly studies when and how vector indices should adapt as data changes \cite{mohoney_incremental_2024}. These ideas motivate our long-term goal: retrieval system updating should include several action levels, from lightweight reranking refresh to full index refresh.
+
+\section{Task, Data, and Evaluation}
+
+We study LongEval-Sci 2026 Task 1 using the \texttt{snapshot-1} training collection. Our primary supervision source is the DCTR qrels, while the raw qrels are treated as a complementary signal for additional inspection and future ablation. We report standard retrieval metrics including nDCG@10, nDCG@1000, MAP, Recall@100, and Recall@1000.
+
+To better capture collection evolution, we conduct evaluation at three levels. First, \emph{whole-train evaluation} measures overall system quality on the entire training snapshot and establishes our main ranking comparisons. Second, \emph{monthly cumulative evaluation} simulates corpus growth through progressively larger subsets, specifically March, March+April, and March+April+May. Third, \emph{temporal-change evaluation} computes pivot-relative change metrics such as RI, DRI, ER, ARP, and MARP. These monthly splits are internal simulation protocols designed to approximate collection growth. They do not redefine the official task, but instead allow us to observe when a retrieval method is strong only in a static setting and when it remains robust under dynamic expansion.
+
+\section{System Overview}
+
+Figure~1 will present the overall system architecture. The pipeline is organized into four layers.
+
+The \textbf{first-stage retrieval layer} includes the official BM25 title+abstract run, the official dense title+abstract run, a custom BM25 full-text retriever, and RM3-based query expansion variants. These systems produce the initial candidate sets and define the retrieval foundation.
+
+The \textbf{second-stage ranking layer} contains reranking and reciprocal rank fusion. Reranking is used to sharpen top-rank quality for selected pipelines, while RRF is used to merge complementary lexical and dense evidence into a broader and more robust candidate pool.
+
+The \textbf{temporal-citation layer} augments the base rankers with temporal metadata features, citation-derived features, router-based control, and additive score integration. This layer is responsible for deciding whether and how non-relevance evidence should affect the final ranking.
+
+The \textbf{update layer} models long-term system maintenance. It includes reindex monitoring as well as non-reindex update strategies that may preserve quality when the collection grows but full rebuilding is costly or unnecessary.
+
+This section intentionally gives a high-level view of the system. Detailed modeling choices for temporal and citation integration are described later in Section~\ref{sec:temporal-citation}.
+
+\section{Retrieval Baselines}
+
+We evaluate sixteen systems and organize them into several coherent families rather than treating them as disconnected trial runs. This structure is important because the central question is not merely which single configuration wins, but how retrieval quality changes as we move from official anchor systems to progressively stronger foundations and then to temporal-citation integration.
+
+The \textbf{base model family} includes the following systems:
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{official\_pyterrier}
+    \item \texttt{official\_pyterrier\_dense}
+    \item \texttt{custom\_lexical\_fulltext}
+    \item \texttt{custom\_title\_abstract\_rm3}
+    \item \texttt{custom\_title\_abstract\_rerank}
+\end{itemize}
+These systems establish the performance range for sparse, dense, expanded, and reranked retrieval.
+
+The \textbf{fusion family} consists of RRF variants that combine lexical and dense candidate generation. These runs test whether heterogeneous evidence improves robustness and deep recall beyond what a single retriever can achieve.
+
+The \textbf{temporal family} extends base systems with temporal overlays, and the \textbf{citation-aware family} further adds citation-derived features on top of temporalized retrieval. Together, these families allow a systematic comparison from official baselines to stronger customized models and finally to controlled integration of temporal and citation evidence.
+
+\section{Temporal and Citation Integration}
+\label{sec:temporal-citation}
+
+This section presents the core methodological contribution of the paper. Our aim is not simply to add more features to ranking, but to understand how temporal and citation signals can be introduced without destabilizing relevance ranking. We therefore study three integration patterns: direct overlay, router-based integration, and additive score integration.
+
+\subsection{Direct Temporal Overlay}
+
+Our temporal reranker starts from a base retrieval score and augments it with time-sensitive evidence. The feature pool includes recency, update score, foundation score, lexical novelty, and query temporal intent. The intuition is that some scientific queries prefer recent or evolving work, while others are better served by stable foundational documents.
+
+The direct temporal overlay applies this signal after base retrieval. This provides a simple and transparent way to test whether temporal evidence improves ranking quality, but it also risks over-applying freshness incentives to queries that do not actually require them.
+
+\subsection{Citation-Aware Overlay}
+
+We then extend the temporal overlay with citation features, including total inbound citations, recent inbound citations, non-self citations, citation velocity, foundational signal, emerging signal, and outbound citations. All citation features are computed \emph{as of the evaluation cutoff} in order to avoid temporal leakage.
+
+Citation evidence is potentially useful for distinguishing established papers from recently emerging work, but it is also noisy: highly cited documents are not always the most relevant for the current query. This makes citation integration a ranking problem rather than a simple metadata bonus.
+
+\subsection{Router-Based Integration}
+
+Router-based integration treats temporal and citation signals as query-dependent evidence channels. Instead of applying every overlay to every query, a router uses query features to choose among several ranking routes: base relevance only, temporal overlay, citation overlay, or temporal+citation overlay.
+
+The goal is to avoid indiscriminate boosting. Some queries are primarily relevance-driven, some have strong temporal intent, and some may benefit from citation-aware preference for foundational or emerging work. Router-based integration therefore acts as a hard selection mechanism over evidence pathways.
+
+Table~X will report the performance of router-based integration compared with direct temporal and citation overlays.
+
+\subsection{Additive Score Integration}
+
+Additive integration instead combines multiple signals softly:
+\[
+\mathrm{final\_score} = \alpha \cdot \mathrm{relevance\_score} + \beta \cdot \mathrm{temporal\_score} + \gamma \cdot \mathrm{citation\_score}.
+\]
+The weights may be fixed globally or adapted per query. Conceptually, this differs from router-based integration in two ways: router-based integration decides \emph{which} evidence channel to use, while additive integration decides \emph{how much} each signal should contribute.
+
+Table~X will compare additive integration with router-based integration and direct overlay methods. If additive integration proves more stable, it would suggest that temporal and citation evidence are most useful as calibrated auxiliary signals rather than as route-level decisions.
+
+\section{Main Retrieval Results}
+
+Table~\ref{tab:whole-train} summarizes the current whole-train results. Among the evaluated single systems, \texttt{custom\_lexical\_fulltext} achieves the strongest nDCG@10 and MAP, indicating that strong full-text sparse retrieval is currently the most reliable retrieval foundation. In contrast, \texttt{rrf\_bm25\_ft\_dense\_ta} does not produce the highest top-rank effectiveness, but it achieves the best deep recall, which makes it a strong candidate-pool strategy.
+
+\begin{table}[ht]
+\centering
+\caption{Whole-train main results.}
+\label{tab:whole-train}
+\begin{tabular}{lllll}
+\toprule
+Method & Family & nDCG@10 & MAP & Recall@1000 \\
+\midrule
+\texttt{custom\_lexical\_fulltext} & base & 0.3302 & 0.2853 & 0.9245 \\
+\texttt{custom\_title\_abstract\_rerank} & base & 0.3222 & 0.2777 & 0.8581 \\
+\texttt{rrf\_bm25\_ft\_dense\_ta} & fusion & 0.3175 & 0.2749 & 0.9667 \\
+\texttt{official\_pyterrier} & base & 0.2922 & 0.2573 & 0.8581 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These results support two initial conclusions. First, full-text BM25 is the strongest current single-system anchor. Second, RRF is especially attractive when recall matters, suggesting that lexical-dense fusion is better understood as a robust candidate-generation strategy than as a guaranteed top-rank winner.
+
+\section{Collection Growth Results}
+
+We next examine system behavior under simulated collection growth. Figure~2 will plot monthly nDCG@10 curves, and the key values are summarized directly in the text for clarity. For \texttt{rrf\_bm25\_ft\_dense\_ta\_dctr}, nDCG@10 improves from 0.2732 in March to 0.2849 in March+April and 0.2930 in March+April+May. For \texttt{custom\_lexical\_fulltext\_dctr}, the corresponding values are 0.2314, 0.2259, and 0.2495. For \texttt{official\_pyterrier\_dctr}, the values are 0.1767, 0.2047, and 0.2377.
+
+The main finding is that RRF behaves most robustly under collection growth. Although full-text BM25 is the strongest static baseline, fusion appears more stable as the corpus expands month by month. This shows why growth-aware evaluation is necessary: whole-train ranking alone does not reveal which systems remain reliable when the collection keeps changing.
+
+\section{Temporal/Citation Integration Results}
+
+This section is reserved for the formal comparison among direct overlays, router-based integration, and additive integration. The final interpretation will depend on the completed experiments. If router-based integration performs best, we will emphasize query-specific signal selection. If additive integration performs best, we will emphasize the stability of soft evidence composition. If neither approach consistently improves over the anchors, we will conclude that temporal and citation signals require stronger calibration, while still treating the negative result of direct overlays as informative.
+
+\begin{table}[ht]
+\centering
+\caption{Temporal and citation integration results (placeholders to be filled after experiments complete).}
+\begin{tabular}{llllll}
+\toprule
+Method & Integration & nDCG@10 & MAP & Recall@1000 & Notes \\
+\midrule
+temporal-only overlay & direct & [ ] & [ ] & [ ] &  \\
+citation-aware overlay & direct & [ ] & [ ] & [ ] &  \\
+router integration & hard routing & [ ] & [ ] & [ ] &  \\
+additive integration & soft scoring & [ ] & [ ] & [ ] &  \\
+base full-text BM25 & no temporal/citation & 0.3302 & 0.2853 & 0.9245 & anchor \\
+RRF fulltext+dense & fusion & 0.3175 & 0.2749 & 0.9667 & anchor \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Per-Intent Analysis}
+
+An additional analysis will break results down by query intent, including foundational, current, evolving, and survey-oriented queries. This view is especially useful for understanding whether temporal, citation, router-based, or additive integration helps only for specific information needs rather than uniformly across all queries.
+
+\section{Adaptive Update System}
+
+The final technical component of the paper concerns long-term maintenance. If scientific retrieval is dynamic, then evaluation should not end at ranking quality alone; it should also consider how the system is updated as the corpus grows.
+
+\subsection{Reindex Monitoring}
+
+Our current reindex monitoring design includes document staleness rate, index coverage gap, new-document velocity, temporal gap, trigger levels, and shadow-index promotion logic. Existing drift statistics already motivate this component. In one observed setting, the collection reaches 869,902 documents, the mean temporal gap is 410 days, and the final staleness rate is 91.84\%. Over the same period, daily nDCG@10 drops from 0.3572 to 0.3312, MAP drops from 0.3173 to 0.2879, and Recall@1000 remains stable at 0.9292.
+
+This pattern is important because it suggests that deep recall may remain largely intact while top-rank quality declines. In other words, the problem is not always that the system fails to retrieve relevant material at all, but that the highest-ranked documents become less well calibrated over time.
+
+\subsection{Update Systems Beyond Reindex}
+
+This observation motivates update strategies beyond full reindexing. One option is \textbf{delta indexing} or two-index retrieval, in which an older main index is combined with a new-document delta index and the outputs are fused at ranking time. A second option is \textbf{reranker refresh}, where the base index remains unchanged but top-ranked candidates are rescored using updated temporal or citation models. A third option is \textbf{fusion refresh}, where existing run outputs are recombined using revised fusion settings. Additional lightweight strategies include \textbf{query-side updates}, such as query expansion refresh, temporal-intent refinement, router-policy adaptation, and score recalibration, as well as \textbf{citation feature refresh}, in which citation caches are updated periodically without rebuilding the entire retrieval index.
+
+The core implication is straightforward: since deep recall remains stable while top-rank quality declines, update strategies should not be limited to full reindexing. In many cases, lighter reranking, fusion, query-side, or citation-refresh updates may be sufficient.
+
+\section{Discussion}
+
+Our current results support four main takeaways. First, full-text sparse retrieval is a strong foundation for LongEval-Sci. Second, lexical-dense fusion is especially useful under collection growth because it provides a more resilient candidate pool. Third, temporal and citation signals should not be injected indiscriminately; they require controlled integration, which motivates router-based and additive approaches. Fourth, dynamic scientific retrieval should be framed as a system-maintenance problem as well as a ranking problem, combining reindexing with lighter update strategies.
+
+Taken together, these findings suggest a coherent story for dynamic scientific retrieval. A strong retrieval foundation should come first, temporal and citation evidence should be added carefully rather than globally, and update policies should be tailored to the specific type of degradation observed in the system.
+
+\section{Conclusion}
+
+We present a dynamic scientific retrieval framework for LongEval-Sci that connects three questions: the choice of retrieval foundation, the integration of temporal and citation signals, and the maintenance of retrieval systems under collection evolution. Our current results indicate that full-text BM25 is the strongest single-system anchor and that lexical-dense RRF is a strong strategy for robust candidate generation. Ongoing router-based and additive experiments are designed to determine how temporal and citation evidence can be incorporated reliably into ranking. More broadly, our adaptive update perspective links retrieval effectiveness to long-term system maintenance and argues that dynamic scientific retrieval should be supported by multiple update mechanisms rather than periodic reindexing alone.
+
+\section*{Planned Figures and Tables}
+
+For clarity, the current paper plan includes the following core visual elements:
+\begin{itemize}[leftmargin=1.5em]
+    \item Figure~1: overall system architecture.
+    \item Table~1: model families.
+    \item Table~2: whole-train main results.
+    \item Figure~2: monthly nDCG@10 curves.
+    \item Table~3: temporal/citation integration results, including router/additive placeholders.
+    \item Figure~3: daily drift curve showing documents versus nDCG@10 and MAP.
+    \item Figure~4: adaptive update framework beyond reindex.
+\end{itemize}
+
+This structure keeps the paper centered on a stable narrative: the first half establishes the retrieval foundation, the middle examines how temporal and citation signals should enter ranking, and the final part addresses how a dynamic scientific retrieval system should be maintained over time.
+
+\bibliographystyle{plain}
+\bibliography{longeval2026_yyd}
+
+\end{document}
