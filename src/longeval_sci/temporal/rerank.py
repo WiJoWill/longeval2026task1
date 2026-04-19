@@ -390,15 +390,16 @@ def temporal_rerank_results(
             )
             for result, final_score in ranked_head
         ]
+        min_head_score = ranked_head[-1][1] if ranked_head else 0.0
         tail_results = [
             SearchResult(
                 query_id=result.query_id,
                 doc_id=result.doc_id,
-                score=result.score,
+                score=min_head_score - (i + 1) * 1e-6,
                 rank=0,
                 run_name=result.run_name,
             )
-            for result in tail
+            for i, result in enumerate(tail)
         ]
         combined = reranked_head + tail_results
         reranked_all.extend(
