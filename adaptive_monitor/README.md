@@ -39,6 +39,41 @@ Outputs:
 Run:
     python adaptive_monitor/trigger_decision.py
 
+### `drift_policy.py`
+Reads retrieval-quality drift signals and chooses a cost-aware update action.
+This is the policy layer for the monitoring table:
+
+| Signal | Level 1 | Level 2 | Level 3 | Main action |
+| --- | --- | --- | --- | --- |
+| nDCG@10 drift | 3-5% drop | 5-10% drop | >10% drop | tune fusion/rerank |
+| Recall@100 drift | 2-4% drop | 4-8% drop | >8% drop | update first-stage retrieval |
+| New-doc penetration | small drop | clear drop | sustained drop | freshness/novelty boost |
+| Old-relevant retention | small drop | clear drop | broad drop | history boost/temporal smoothing |
+| Lexical coverage drift | local | query class | broad | BM25 stats/query expansion |
+| Dense coverage drift | local | query class | broad | re-encode/rebuild ANN |
+| Vocabulary drift | rising | clear rise | burst | router/expansion/dense emphasis |
+| Update cost | acceptable | high | extreme | defer heavy update when possible |
+
+Expected input is CSV or JSON rows with any of these columns:
+
+- `period`
+- `ndcg_10_drop` or `ndcg_drop`
+- `recall_100_drop` or `recall_drop`
+- `new_doc_penetration_drop`
+- `old_relevant_retention_drop`
+- `lexical_coverage_drop`
+- `dense_coverage_drop`
+- `vocabulary_drift_rise` or `vocabulary_drift`
+- `update_cost_level` or `update_cost`
+
+Drop/rise values can be ratios (`0.06`) or percentages (`6`). The script writes:
+
+- `outputs/drift_policy/drift_policy_decisions.csv`
+- `outputs/drift_policy/drift_policy_decisions.json`
+
+Run:
+    python adaptive_monitor/drift_policy.py --input path/to/drift_signals.csv
+
 ### `reindex_pipeline.py`
 Runs the adaptive reindex pipeline around the trigger decisions.
 
@@ -92,5 +127,6 @@ To regenerate the run file first:
 | --- | --- |
 | `collection_analytics.py` | How fast new documents arrive, how stale the index becomes over time |
 | `trigger_decision.py` | Which weekly cutoffs cross Level 1/2/3 reindex thresholds |
+| `drift_policy.py` | Which metric drift pattern happened and the cheapest sufficient update action |
 | `reindex_pipeline.py` | Plans or builds a shadow reindex run from the latest actionable trigger |
 | `daily_split_eval.py` | How nDCG@10 and recall change as more documents are added to the evaluation window |
