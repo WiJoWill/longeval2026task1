@@ -1,76 +1,58 @@
-schema-version: 0.1
-run-version: 1.0
+# We use the ir-metadata standard to describe and process runs.
+# The fields below are mandatory, you can add additional metadata if you like.
+# There are two libraries that automate and simplify tracking of experimental metadata that you can use optionally:
+#
+#   - The metadata module of [repro_eval](https://www.ir-metadata.org/software/):
+#     Tracks the platform and implementation of your experiments.
+#
+#   - The [tirex_tracker](https://github.com/tira-io/tirex-tracker/):
+#     Tracks the platform, implementation, and resources (e.g., CPU, GPU, RAM, emissions, etc.) of your experiments.
+#
+# See https://www.ir-metadata.org for more details.
+
 tag: custom_lexical_fulltext
+
+actor:
+  team: GLHF
+
+research goal:
+  description: |
+    This run targets CLEF LongEval 2026 Task 1 (LongEval-Sci).
+    The system is a non-temporal lexical baseline that retrieves documents
+    from the full-text snapshot index with PyTerrier/Terrier BM25.
+    The goal is to provide a strong automatic baseline without temporal
+    reranking or citation-aware adjustments.
+
 platform:
-  hardware:
-    cpu:
-      model: Intel64 Family 6 Model 151 Stepping 2, GenuineIntel
-      architecture: AMD64
-      operation mode: 64-bit
-      number of cores: 16
-    ram: 40 GB
-  operating system:
-    distribution: Windows 11
-    kernel: Windows-11-10.0.26200-SP0
   software:
     libraries:
-      python:
       - python==3.12.7
+      - python-terrier==1.0.4
+      - ir-datasets-longeval>=0.0.12
       - numpy==2.4.4
-      - pandas==2.3.3
       - pyyaml==6.0.3
-      - ir_datasets==0.5.11
-    retrieval toolkit:
-    - pyterrier==1.0.4
-research goal:
-  venue:
-    name: CLEF LongEval
-    year: 2026
-  evaluation:
-    reported measures:
-    - ndcg_cut_10
-    - ndcg_cut_1000
-    - map
-    - recall_100
-    - recall_1000
-    baseline:
-    - official_pyterrier
+
 implementation:
-  executable:
-    cmd: .\.venv\Scripts\python.exe scripts/run_baseline.py --config configs/custom_lexical_fulltext.yaml
   source:
-    lang:
-    - Python
-    - YAML
-    - PowerShell
-    commit: b0aa52e
+    repository: https://github.com/WiJoWill/longeval2026task1/tree/3ed85a2
+
+data:
+  training data:
+    - name: longeval-sci
+    - name: snapshot-1 train development split
+
 method:
   automatic: true
-  score ties: alphabetical order on doc_id after score sorting
+
   indexing:
     tokenizer: Terrier tokeniser via PyTerrier
     stemmer: Porter
     stopwords: Terrier default
+
   retrieval:
-  - name: bm25_fulltext
-    method: Terrier BM25 over full text
-    top_k: 1000
-actor:
-  name: Haijian, Wu/Yingdong Yang
-  team: GLHF
-  fields:
-  - ir
-  - nlp
-  role: experimenter
-data:
-  test collection:
-    name: CLEF LongEval-Sci 2026 snapshot test collection
-    source: https://clef-longeval.github.io/tasks/
-    topics: https://pypi.org/project/ir-datasets-longeval/
-    ir_datasets: longeval-sci-2026/{snapshot-1,snapshot-2,snapshot-3}
-  training data:
-  - name: snapshot-1 train development split
-    source: https://clef-longeval.github.io/tasks/
-  other:
-  - name: local snapshot cache loader
-    source: https://pypi.org/project/ir-datasets-longeval/
+    - name: bm25_fulltext
+      lexical: true
+      deep_neural_model: false
+      sparse_neural_model: false
+      dense_neural_model: false
+      single_stage_retrieval: true

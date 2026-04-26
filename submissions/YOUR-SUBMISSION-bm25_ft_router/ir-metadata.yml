@@ -1,82 +1,59 @@
-schema-version: 0.1
-run-version: 1.0
+# We use the ir-metadata standard to describe and process runs.
+# The fields below are mandatory, you can add additional metadata if you like.
+# There are two libraries that automate and simplify tracking of experimental metadata that you can use optionally:
+#
+#   - The metadata module of [repro_eval](https://www.ir-metadata.org/software/):
+#     Tracks the platform and implementation of your experiments.
+#
+#   - The [tirex_tracker](https://github.com/tira-io/tirex-tracker/):
+#     Tracks the platform, implementation, and resources (e.g., CPU, GPU, RAM, emissions, etc.) of your experiments.
+#
+# See https://www.ir-metadata.org for more details.
+
 tag: bm25_ft_router
+
+actor:
+  team: GLHF
+
+research goal:
+  description: |
+    This run targets CLEF LongEval 2026 Task 1 (LongEval-Sci).
+    The system uses full-text BM25 as the first-stage ranker and then
+    applies a router-style temporal-citation overlay that adapts the
+    integration strength based on the inferred query profile.
+    The goal is to use temporal and citation evidence selectively rather
+    than with a fixed reranking policy.
+
 platform:
-  hardware:
-    cpu:
-      model: Intel64 Family 6 Model 151 Stepping 2, GenuineIntel
-      architecture: AMD64
-      operation mode: 64-bit
-      number of cores: 16
-    ram: 40 GB
-  operating system:
-    distribution: Windows 11
-    kernel: Windows-11-10.0.26200-SP0
   software:
     libraries:
-      python:
       - python==3.12.7
+      - python-terrier==1.0.4
+      - ir-datasets-longeval>=0.0.12
       - numpy==2.4.4
-      - pandas==2.3.3
       - pyyaml==6.0.3
-      - ir_datasets==0.5.11
-    retrieval toolkit:
-    - pyterrier==1.0.4
-research goal:
-  venue:
-    name: CLEF LongEval
-    year: 2026
-  evaluation:
-    reported measures:
-    - ndcg_cut_10
-    - ndcg_cut_1000
-    - map
-    - recall_100
-    - recall_1000
-    baseline:
-    - custom_lexical_fulltext
+
 implementation:
-  executable:
-    cmd: inline Python overlay using configs/custom_title_abstract_rerank_router.yaml on outputs/custom_lexical_fulltext/snapshot-{1,2,3}/run.txt
   source:
-    lang:
-    - Python
-    - YAML
-    - PowerShell
-    commit: b0aa52e
+    repository: https://github.com/WiJoWill/longeval2026task1/tree/3ed85a2
+
+data:
+  training data:
+    - name: longeval-sci
+    - name: snapshot-1 train development split
+
 method:
   automatic: true
-  score ties: alphabetical order on doc_id after score sorting
+
   indexing:
     tokenizer: Terrier tokeniser via PyTerrier
     stemmer: Porter
     stopwords: Terrier default
+
   retrieval:
-  - name: bm25_fulltext
-    method: Terrier BM25 over full text
-    top_k: 1000
-  - name: temporal_citation_overlay
-    method: longeval_sci.temporal.rerank.temporal_rerank_results
-    reranks: bm25_fulltext
-    integration mode: router
-    rerank top k: 200
-    citation features: true
-actor:
-  name: Haijian, Wu/Yingdong Yang
-  team: GLHF
-  fields:
-  - ir
-  - nlp
-  role: experimenter
-data:
-  test collection:
-    name: CLEF LongEval-Sci 2026 snapshot test collection
-    source: https://clef-longeval.github.io/tasks/
-    topics: https://pypi.org/project/ir-datasets-longeval/
-    ir_datasets: longeval-sci-2026/{snapshot-1,snapshot-2,snapshot-3}
-  training data:
-  - name: snapshot-1 train development split
-    source: https://clef-longeval.github.io/tasks/
-  other:
-  - name: local citation network cache
-    source: https://pypi.org/project/ir-datasets-longeval/
+    - name: bm25_fulltext_with_router_temporal_citation_overlay
+      lexical: true
+      deep_neural_model: false
+      sparse_neural_model: false
+      dense_neural_model: false
+      single_stage_retrieval: false
