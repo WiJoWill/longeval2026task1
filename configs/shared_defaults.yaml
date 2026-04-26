@@ -85,7 +85,7 @@ output:
 
 runtime:
   device: cpu
-  batch_size: 16
+  batch_size: 4
   seed: 42
   pyterrier_memory_mb: 12288
 
