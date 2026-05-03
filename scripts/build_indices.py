@@ -11,13 +11,14 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from longeval_sci.baselines.runner import build_required_indices, clone_for_train_eval
+from longeval_sci.baselines.runner import build_required_indices, clone_for_snapshot, clone_for_train_eval
 from longeval_sci.config import load_config
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build canonical indices required by a baseline config.")
     parser.add_argument("--config", required=True, help="Path to the baseline YAML config.")
+    parser.add_argument("--snapshot-id", help="Build only one snapshot, for example snapshot-3.")
     parser.add_argument("--train-snapshot1", action="store_true", help="Switch to snapshot-1 train mode before building.")
     parser.add_argument("--qrels-variant", default="dctr", choices=["dctr", "raw"], help="Qrels variant for train mode.")
     args = parser.parse_args()
@@ -25,6 +26,8 @@ def main() -> None:
     config = load_config(args.config)
     if args.train_snapshot1:
         config = clone_for_train_eval(config, qrels_variant=args.qrels_variant)
+    if args.snapshot_id:
+        config = clone_for_snapshot(config, args.snapshot_id)
     build_required_indices(config)
 
 

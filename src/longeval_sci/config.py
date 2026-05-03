@@ -132,6 +132,7 @@ class RuntimeConfig:
     seed: int = 42
     require_gpu: bool = False
     pyterrier_memory_mb: int | None = 12288
+    pyterrier_index_threads: int = 4
 
 
 @dataclass(slots=True)
