@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.18)  3 MAY 2026 09:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.18)  6 MAY 2026 22:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**main.tex
-(./main.tex
+**c:/Users/Will/Documents/longEval2026task1/documents/main.tex
+(c:/Users/Will/Documents/longEval2026task1/documents/main.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
 (c:/Program Files/TinyTeX/texmf-dist/tex/latex/base/article.cls
@@ -473,120 +473,67 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 24.
  (c:/Program Files/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
-
-{c:/Program Files/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Program Files/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}]
+)
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 39.
  (c:/Program Files/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [2{c:/Program Files/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 69.
+) [1
+
+{c:/Program Files/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Program Files/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}] [2{c:/Program Files/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 70.
  (c:/Program Files/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 77.
+(Font)              <10.95> on input line 78.
+ [3]
+Underfull \hbox (badness 2237) in paragraph at lines 117--118
+\T1/lmr/m/n/10.95 Embedding-4B. It tests whether neu-ral se-man-tic
+ []
 
-Underfull \hbox (badness 10000) in paragraph at lines 103--104
-[]\T1/lmr/m/n/10.95 Qwen/Qwen3-Embedding-4B
+[4] [5{c:/Program Files/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Program Files/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Program Files/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}] [6{c:/Program Files/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 206.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 206.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 206.
+
+Underfull \hbox (badness 2538) in paragraph at lines 208--208
+[]\T1/lmr/m/n/10 Citation over-
  []
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 104--105
-[]\T1/lmr/m/n/10.95 PyTerrier BM25 over full text;
+Underfull \hbox (badness 7963) in paragraph at lines 211--212
+[]\T1/lmr/m/n/10 Tests whether publication-time
  []
 
 
-Underfull \hbox (badness 1087) in paragraph at lines 104--105
-\T1/lmr/m/n/10.95 no de-lib-er-ate trun-ca-tion in our
+Underfull \hbox (badness 1527) in paragraph at lines 213--214
+[]\T1/lmr/m/n/10 Tests whether ci-ta-tion ev-i-dence
  []
 
-
-Underfull \hbox (badness 1412) in paragraph at lines 105--106
-[]\T1/lmr/m/n/10.95 BM25 first pass, RM3 rewrite,
- []
-
-
-Underfull \hbox (badness 2277) in paragraph at lines 106--107
-\T1/lmr/m/n/10.95 the MiniLM-L-12 MS MARCO
- []
-
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 131--132
-[]\T1/lmr/m/n/10.95 Uses
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 132--133
-[]\T1/lmr/m/n/10.95 Cutoff is snap-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 134--135
-[]\T1/lmr/m/n/10.95 Disabled or falls
- []
-
-
-Underfull \hbox (badness 1377) in paragraph at lines 134--135
-\T1/lmr/m/n/10.95 back when un-re-li-
- []
-
-
-Underfull \hbox (badness 1571) in paragraph at lines 137--138
-[]\T1/lmr/m/n/10.95 Edges af-ter cut-off
- []
-
-
-Underfull \hbox (badness 1571) in paragraph at lines 138--139
-[]\T1/lmr/m/n/10.95 Edges af-ter cut-off
- []
-
-
-Underfull \hbox (badness 1292) in paragraph at lines 139--139
-[]\T1/lmr/m/n/10.95 Recent in-bound ci-ta-tions di-vided by win-dow
- []
-
-
-Underfull \hbox (badness 1571) in paragraph at lines 139--140
-[]\T1/lmr/m/n/10.95 Edges af-ter cut-off
- []
-
-
-Underfull \hbox (badness 1571) in paragraph at lines 140--141
-[]\T1/lmr/m/n/10.95 Edges af-ter cut-off
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 141--141
-[]\T1/lmr/m/n/10.95 Emerging ci-ta-tion
- []
-
-
-Underfull \hbox (badness 1571) in paragraph at lines 141--142
-[]\T1/lmr/m/n/10.95 Edges af-ter cut-off
- []
-
-[4{c:/Program Files/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Program Files/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Program Files/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}] [5{c:/Program Files/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] [6] [7] (./main.bbl [8]) [9] (./main.aux)
+[7] [8] [9] [10] (./main.bbl [11] [12]) [13] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 31AC82BD5BD64B919323F4B58C547342;2944.
+(rerunfilecheck)             Checksum: 247778CBBE3D09254DBF463967FA871B;4081.
  ) 
 Here is how much of TeX's memory you used:
- 10946 strings out of 469278
- 167977 string characters out of 5462079
- 591503 words of memory out of 5000000
- 39578 multiletter control sequences out of 15000+600000
- 673994 words of font info for 74 fonts, out of 8000000 for 9000
+ 10996 strings out of 469278
+ 168735 string characters out of 5462079
+ 588696 words of memory out of 5000000
+ 39607 multiletter control sequences out of 15000+600000
+ 686025 words of font info for 89 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 75i,12n,79p,1238b,559s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on main.pdf (9 pages, 235563 bytes).
+ 75i,10n,79p,1288b,567s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/Program Files/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
+Output written on main.pdf (13 pages, 279054 bytes).
 PDF statistics:
- 246 PDF objects out of 1000 (max. 8388607)
- 208 compressed objects within 3 object streams
- 52 named destinations out of 1000 (max. 500000)
- 145 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 306 PDF objects out of 1000 (max. 8388607)
+ 260 compressed objects within 3 object streams
+ 64 named destinations out of 1000 (max. 500000)
+ 201 words of extra memory for PDF output out of 10000 (max. 10000000)
 

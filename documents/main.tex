@@ -23,7 +23,7 @@
 \maketitle
 
 \begin{abstract}
-LongEval-Sci evaluates scientific retrieval under collection change, where a system should be effective on the current corpus and stable as documents accumulate over time. This paper reports a baseline and ablation study for LongEval-Sci 2026 Task 1. We compare official PyTerrier BM25 and Qwen dense baselines with full-text BM25, RM3 query expansion, cross-encoder reranking, and reciprocal rank fusion (RRF). We also evaluate a first temporal-citation reranking overlay using publication-time and OpenCitations-derived signals. On snapshot-1 train, full-text BM25 is the strongest single retriever (DCTR nDCG@10 = 0.3302, MAP = 0.2853), while RRF over full-text BM25 and dense title+abstract retrieval gives the best deep recall (Recall@1000 = 0.9667). In cumulative monthly evaluation, the same RRF run is the most stable high-performing model as the simulated corpus grows from March to May. The initial temporal-citation overlays do not yet improve the strongest lexical and fusion baselines, showing that temporal and citation evidence require careful calibration rather than uniform boosting. We conclude with a protocol for future leakage-safe temporal/citation modeling and update-trigger analysis.
+LongEval-Sci evaluates scientific retrieval under collection change, where a system should be effective on the current corpus and stable as documents accumulate over time. This paper reports a baseline and ablation study for LongEval-Sci 2026 Task 1. We compare official PyTerrier BM25 and Qwen dense baselines with full-text BM25, RM3 query expansion, cross-encoder reranking, and reciprocal rank fusion (RRF). We also evaluate first-pass temporal and citation reranking overlays using publication-time and OpenCitations-derived signals. On snapshot-1 train, full-text BM25 is the strongest single retriever (DCTR nDCG@10 = 0.3302, MAP = 0.2853), while RRF over full-text BM25 and dense title+abstract retrieval gives the best deep recall (Recall@1000 = 0.9667). In cumulative monthly evaluation, the same RRF run is the most stable high-performing model as the simulated corpus grows from March to May. The initial temporal and citation overlays do not yet improve the strongest lexical and fusion baselines, showing that these signals require careful calibration rather than uniform boosting. We conclude with a protocol for leakage-safe temporal and citation modeling over reusable first-stage indexes.
 \end{abstract}
 
 \section{Introduction}
@@ -32,12 +32,13 @@ Scientific search collections are not static. New papers are published, metadata
 
 We study LongEval-Sci 2026 Task 1 with two goals. First, we want a strong non-temporal retrieval foundation for scientific search. Second, we want to understand whether simple temporal and citation signals help enough to justify adding them as reranking features. The distinction matters: a feature can be conceptually plausible and still hurt ranking if it overwhelms semantic or lexical relevance.
 
-This paper therefore narrows the claim relative to our earlier project plan. We do not claim a finished adaptive retrieval system. Instead, we report completed baseline, fusion, temporal-overlay, citation-overlay, and month-split evaluations, then identify what remains to be done before temporal-citation reranking and update-trigger policies can be treated as validated contributions.
+This paper therefore narrows the claim relative to our earlier project plan. We do not claim that temporal and citation integration is already solved. Instead, we report completed baseline, fusion, temporal-overlay, citation-overlay, and month-split evaluations, then identify what remains to be done before temporal-citation reranking can be treated as a validated ranking contribution.
 
 Our completed contributions are:
 \begin{itemize}[leftmargin=1.5em]
     \item We compare five base LongEval-Sci retrieval systems: official BM25 title+abstract, official Qwen dense title+abstract, full-text BM25, title+abstract BM25 with RM3, and title+abstract BM25 with cross-encoder reranking.
     \item We evaluate three run-level RRF fusion models that reuse existing first-stage outputs without rebuilding indexes.
+    \item We separate skeleton retrieval models from complete overlay variants, making temporal and citation evidence modular reranking layers rather than new index definitions.
     \item We define a reproducible snapshot-1 development protocol using whole-train evaluation and cumulative monthly splits over March, March+April, and March+April+May.
     \item We evaluate first-pass temporal and citation overlays and show that naive temporal/citation scoring is not yet competitive with the strongest non-temporal baselines.
 \end{itemize}
@@ -62,7 +63,7 @@ Temporal retrieval work has shown that freshness should be balanced with relevan
 
 \subsection{Dynamic Index Maintenance}
 
-The long-term update question is connected to dynamic indexing. Incremental inverted indexing and immediate-access dynamic indexing study how text indexes can support growing collections without full rebuilds \cite{brown_fast_nodate,asadi_fast_2013,moffat_efficient_2023}. Streaming vector-index maintenance studies similar problems for dense search \cite{mohoney_incremental_2024}. These works motivate future update-trigger experiments, but this paper does not yet validate an update policy.
+The long-term update question is connected to dynamic indexing. Incremental inverted indexing and immediate-access dynamic indexing study how text indexes can support growing collections without full rebuilds \cite{brown_fast_nodate,asadi_fast_2013,moffat_efficient_2023}. Streaming vector-index maintenance studies similar problems for dense search \cite{mohoney_incremental_2024}. We treat update triggers as a separate system-maintenance layer rather than mixing them into the ranking-model discussion.
 
 \section{Task, Data, and Protocol}
 
@@ -87,63 +88,133 @@ March+April+May & 3,4,5 & 96 & 525,293 & full month-filtered view \\
 
 This monthly protocol is an internal simulation rather than an official LongEval test condition. It filters the run and qrels to documents whose \texttt{publishedDate} month is included in the cumulative split. The query count changes because queries without at least one retained judgment are excluded from that split. This means the monthly results should be interpreted as a controlled development diagnostic, not as a complete official evaluation.
 
-\section{Models}
+\section{Model Designs}
+\label{sec:model-designs}
 
-Table~\ref{tab:model-protocol} summarizes the main retrieval systems. The suffix \texttt{\_dctr} in report files means that the run was evaluated with DCTR qrels; it does not mean the model was trained on DCTR labels.
+Our model design has two levels. The first level is the \emph{skeleton retrieval model}: a first-stage retriever or run-level fusion method that produces a ranked list from an existing index or released run. The second level is the \emph{complete overlay model}: a skeleton ranking plus optional temporal and citation reranking layers. This separation is deliberate. It keeps expensive indexing decisions independent from lighter ranking experiments, and it lets us test temporal and citation evidence without changing the underlying document representation.
+
+The suffix \texttt{\_dctr} in report files means that the run was evaluated with DCTR qrels. It does not mean the model was trained on DCTR labels. The suffixes \texttt{\_temporal} and \texttt{\_citation} identify overlay variants. A model can therefore appear as a base skeleton, a temporal-only overlay, or a temporal+citation overlay.
+
+\subsection{Index and Run Reuse}
+
+We maintain two lexical document views. The first is title+abstract, which is the compact view used by the official PyTerrier BM25 baseline and the official dense baseline. The second is full text, which is indexed separately for the custom full-text BM25 model. The dense Qwen baseline is not a lexical Terrier index: it uses a dense embedding representation over the same compact textual view. Thus, title+abstract BM25 and dense title+abstract retrieval may consume similar text fields, but they remain different retrieval backends.
+
+All fusion, reranking, temporal, and citation experiments are overlays over first-stage rankings. RRF reads run files; RM3 rewrites the query inside a lexical pipeline but uses the same lexical index; cross-encoder reranking rescores candidate documents; temporal and citation overlays rescore already retrieved candidates. None of these steps requires building a new index. This matters practically because full-text and dense indexes are expensive to construct, while run-level and reranking overlays can be iterated much faster.
+
+\subsection{Skeleton Retrieval Models}
+
+Table~\ref{tab:skeleton-models} summarizes the skeleton systems. These are the main retrieval foundations evaluated before temporal and citation evidence is added.
 
 \begin{table}[ht]
 \centering
-\caption{Model families and implementation details.}
-\label{tab:model-protocol}
-\begin{tabular}{p{0.31\linewidth}p{0.25\linewidth}p{0.35\linewidth}}
+\caption{Skeleton retrieval models. TA denotes title+abstract and FT denotes full text.}
+\label{tab:skeleton-models}
+\begin{tabular}{p{0.18\linewidth}p{0.18\linewidth}p{0.55\linewidth}}
 \toprule
-Model & Retrieval view & Notes \\
+Model & Source view & Design role \\
 \midrule
-TA BM25 & title+abstract & PyTerrier BM25 anchor, Terrier stopwording and Porter stemming; config \texttt{official\_pyterrier}. \\
-Dense(Qwen) & title+abstract & Qwen/Qwen3-Embedding-4B dense baseline via local OpenAI-compatible embedding service. \\
-FT BM25 & full text & PyTerrier BM25 over full text; no deliberate truncation in our streaming index path. \\
-TA BM25+RM3 & title+abstract & BM25 first pass, RM3 rewrite, BM25 second pass; fbDocs = 3, fbTerms = 10, fbLambda = 0.6. \\
-TA rerank & title+abstract & BM25 candidates reranked with the MiniLM-L-12 MS MARCO cross-encoder. \\
-RRF models & run files & Fuse two or three existing runs with RRF constant $k=60$; no index rebuild. \\
+TA BM25 & TA & Official PyTerrier lexical anchor. It indexes compact scientific metadata text and provides the pivot run for temporal-change metrics. \\
+Dense(Qwen) & TA & Official dense semantic anchor using Qwen/Qwen3-Embedding-4B. It tests whether neural semantic matching improves over sparse lexical matching. \\
+FT BM25 & FT & Custom full-text lexical baseline. It tests whether longer scientific text improves retrieval despite higher indexing cost. \\
+TA BM25+RM3 & TA & Query-expansion baseline. It uses an initial BM25 search, selects pseudo-relevant documents, expands the query with feedback terms, and runs BM25 again. \\
+TA rerank & TA & Two-stage lexical-neural baseline. It retrieves candidates with TA BM25 and reranks the candidate head using a MiniLM-L-12 MS MARCO cross-encoder. \\
+RRF fusion & run files & Run-level fusion over existing ranked lists. It combines complementary sparse, dense, and full-text evidence without score normalization or index rebuilding. \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-For RRF, each query-document pair receives
+The TA BM25 skeleton is the simplest official anchor. It uses the title+abstract representation, Terrier's standard text processing, and BM25 scoring. It is useful not because it is expected to be optimal, but because it provides a stable reference point for both absolute metrics and pivot-relative robustness metrics.
+
+The Dense(Qwen) skeleton represents a different matching hypothesis. Instead of scoring exact or stemmed term overlap, it encodes queries and documents into an embedding space and retrieves by vector similarity. We use it as a released official dense baseline when comparing results. When reproduced locally, it depends on a local OpenAI-compatible embedding service serving Qwen/Qwen3-Embedding-4B; no external API call is part of the evaluation pipeline.
+
+The FT BM25 skeleton changes the document view rather than the scoring family. It applies BM25 to full text, which can capture evidence absent from abstracts but may also introduce noise from long documents. In our results, this model is the strongest single-system baseline, suggesting that scientific retrieval benefits substantially from full-text lexical evidence.
+
+The TA BM25+RM3 skeleton changes the query rather than the index. RM3 first retrieves documents with BM25, estimates useful feedback terms from the top pseudo-relevant documents, interpolates those terms with the original query, and then runs a second BM25 search. In our configuration, \texttt{fbDocs}=3, \texttt{fbTerms}=10, and \texttt{fbLambda}=0.6. This makes RM3 a non-temporal reformulation method: it aims to reduce vocabulary mismatch, not to exploit future judgments or time signals.
+
+The TA rerank skeleton changes the second-stage scorer. It keeps BM25 as a candidate generator but rescores top candidates with a cross-encoder that jointly reads the query and candidate document text. This model tests whether neural interaction reranking can improve top-rank precision beyond the initial sparse ranking.
+
+\subsection{Run-Level Fusion}
+
+RRF is treated as a skeleton model family because each fused run becomes a complete non-temporal retrieval system. For each query-document pair, the fused score is
 \[
 \mathrm{RRF}(d) = \sum_i \frac{1}{k + r_i(d)},
 \]
-where $r_i(d)$ is the rank of document $d$ in input run $i$. We evaluate three RRF variants: BM25 title+abstract + dense title+abstract, BM25 full text + dense title+abstract, and BM25 title+abstract + BM25 full text + dense title+abstract.
+where $r_i(d)$ is the rank of document $d$ in input run $i$. We use $k=60$. If a document is absent from an input run, that run contributes zero. We evaluate three fusion variants:
+\begin{itemize}[leftmargin=1.5em]
+    \item RRF(TA BM25, Dense): compact lexical plus compact dense evidence.
+    \item RRF(FT BM25, Dense): full-text lexical plus compact dense evidence.
+    \item RRF(TA BM25, FT BM25, Dense): three-way fusion across compact lexical, full-text lexical, and dense semantic views.
+\end{itemize}
 
-\section{Temporal and Citation Overlay}
-\label{sec:temporal-citation}
+RRF is especially useful in this project because BM25, dense retrieval, and reranking scores are not naturally calibrated to each other. Rank-based fusion avoids raw-score normalization and allows us to test whether complementary retrieval views improve robustness. It also cleanly follows the ``overlay'' philosophy: the fused model is built from existing run files, not from a new index.
 
-The temporal/citation layer is implemented as a reranking overlay over the top retrieved candidates. It does not modify BM25, Qwen, or full-text indexes. For each query, base scores are min-max normalized within the reranked head. The final score is a weighted sum of normalized base relevance plus temporal and optional citation components.
+\subsection{Temporal Overlay}
+\label{sec:temporal-overlay}
+
+The temporal overlay is a candidate reranking layer. It takes a skeleton run, loads metadata for the candidate documents, computes time-aware features relative to the active cutoff, and rescales the candidate head. It does not modify the index and does not retrieve new documents. The current implementation uses \texttt{publishedDate} as the primary document-time field, because earlier experiments found that \texttt{updatedDate} and \texttt{createdDate} were too sparse or poorly aligned with the training period.
+
+The overlay begins by classifying query intent with a lightweight rule-based classifier. Queries with words such as ``recent'', ``current'', ``latest'', ``new'', or ``state of the art'' receive a current/evolving intent. Queries with words such as ``survey'', ``review'', or ``overview'' receive a survey-like intent. Queries that look conceptual or background-oriented are treated as foundational. This classifier is intentionally simple; its role is to prevent the same recency bias from being applied to every query.
+
+For a document $d$ and cutoff time $t$, the main temporal features are:
+\[
+\mathrm{age}(d,t) = t - \mathrm{publishedDate}(d),
+\]
+\[
+\mathrm{recency}(d,t) = \exp(-\mathrm{age}(d,t)/h_f),
+\]
+\[
+\mathrm{foundation}(d,t) = 1 - \exp(-\mathrm{age}(d,t)/h_a).
+\]
+Here $h_f$ is a freshness half-life and $h_a$ is an age half-life for foundational documents. The overlay also computes a lightweight lexical novelty signal from terms in the candidate document. The temporal score is then a query-intent-dependent weighted combination of recency, foundation, update, and novelty features:
+\[
+T(q,d,t) = w_r(q)\mathrm{recency}(d,t) + w_f(q)\mathrm{foundation}(d,t) + w_n(q)\mathrm{novelty}(q,d).
+\]
+For current or evolving queries, the overlay gives more weight to recency and novelty. For foundational or survey-like queries, it gives more weight to age-stable evidence and less weight to recency.
+
+\subsection{Citation Overlay}
+\label{sec:citation-overlay}
+
+The citation overlay is separate from the temporal overlay. It uses a local OpenCitations-derived citation network and computes graph features for candidate documents. The intended role is different from simple publication recency: citation features can represent whether a paper is foundational, newly emerging, or connected to a larger scientific neighborhood.
+
+For each candidate document, we compute inbound citations, recent inbound citations, citation velocity, outbound citations, and two derived signals. The foundational citation signal rewards documents with many inbound citations but a low recent-citation ratio:
+\[
+C_{\mathrm{foundation}}(d,t) = \log(1+\mathrm{inbound}(d,t))\cdot(1-\mathrm{recentRatio}(d,t)).
+\]
+The emerging citation signal rewards documents receiving recent citation attention:
+\[
+C_{\mathrm{emerging}}(d,t) = \log(1+\mathrm{recentInbound}(d,t))\cdot \mathrm{recentRatio}(d,t).
+\]
+Citation features are computed as of the active cutoff. Citation edges after the cutoff are removed when timestamp information is available. Candidate documents without citation metadata receive zero-valued citation features rather than being dropped. This keeps the overlay safe for sparse citation coverage, but it also means citation features can be weak when the graph is incomplete.
+
+\subsection{Complete Overlay Models}
+
+The complete overlay score combines the normalized skeleton score, temporal score, and citation score:
+\[
+S'(q,d,t) = \alpha \widehat{S}_{\mathrm{base}}(q,d)
+          + \beta(q) \widehat{T}(q,d,t)
+          + \gamma(q) \widehat{C}(q,d,t).
+\]
+The temporal-only model sets $\gamma(q)=0$. A citation-only variant would set $\beta(q)=0$, while the temporal+citation model allows both terms. In the current completed experiments, we evaluate temporal-only overlays for several skeletons and temporal+citation overlays for selected skeletons. The citation-only ablation remains useful but is not yet the primary reported setting.
+
+Table~\ref{tab:overlay-models} lists how the skeleton and overlay families relate to each other. The important point is that a temporal or citation model is not a new first-stage retriever. It is a reranked version of a skeleton model, and therefore it can be compared directly against the original skeleton to measure the value or harm of the overlay.
 
 \begin{table}[ht]
 \centering
-\caption{Temporal and citation features used in the first-pass overlay. These definitions are implementation-level, not claims that each feature is currently beneficial.}
-\label{tab:feature-definitions}
-\begin{tabular}{p{0.22\linewidth}p{0.50\linewidth}p{0.20\linewidth}}
+\caption{Relationship between skeleton models and overlay variants.}
+\label{tab:overlay-models}
+\small
+\begin{tabular}{p{0.22\linewidth}p{0.14\linewidth}p{0.14\linewidth}p{0.32\linewidth}}
 \toprule
-Feature & Definition & Leakage control \\
+Variant type & Temporal overlay & Citation overlay & Interpretation \\
 \midrule
-Age & Days from document publication date to evaluation cutoff. & Uses \texttt{publishedDate}. \\
-Recency & $\exp(-\mathrm{age}/h_f)$ with freshness half-life $h_f$. & Cutoff is snapshot/month end. \\
-Foundation & $1-\exp(-\mathrm{age}/h_a)$ with age half-life $h_a$. & Uses only document date. \\
-Update & Same decay as recency over update age when update dates are enabled. & Disabled or falls back when unreliable. \\
-Novelty & Lightweight lexical score from novelty terms and query-unseen document terms. & Uses candidate text only. \\
-Temporal intent & Rule-based query label: current, foundational, evolving, or survey. & Query text only. \\
-Inbound citations & Count of citation edges to the document. & Edges after cutoff removed. \\
-Recent citations & Inbound citations in a recent window before cutoff. & Edges after cutoff removed. \\
-Citation velocity & Recent inbound citations divided by window length. & Edges after cutoff removed. \\
-Foundational citation signal & $\log(1+\mathrm{inbound})\cdot(1-\mathrm{recent\ ratio})$. & Edges after cutoff removed. \\
-Emerging citation signal & $\log(1+\mathrm{recent\ inbound})\cdot\mathrm{recent\ ratio}$. & Edges after cutoff removed. \\
+Skeleton & no & no & Original retrieval or fusion run. \\
+Temporal-only & yes & no & Tests whether publication-time features improve candidate order. \\
+Citation-only & no & yes & Planned clean ablation for citation graph evidence alone. \\
+Temporal+citation & yes & yes & Tests whether citation evidence helps after temporal reranking. \\
 \bottomrule
 \end{tabular}
+\normalsize
 \end{table}
-
-Citation features are computed from the local OpenCitations-derived CSV and filtered by citation edge creation time. Candidate documents without citation metadata receive zero citation features. Self-citation indicators are used when available through the citation graph fields.
 
 \section{Results}
 
@@ -218,23 +289,60 @@ Dense(Qwen) & 0.2009 & 0.2182 & 0.2316 \\
 \end{tabular}
 \end{table}
 
-For pivot-relative temporal-change analysis, we use \texttt{official\_pyterrier\_dctr} as the pivot and nDCG@10 as the score. From March to March+April+May, the pivot improves from 0.1767 to 0.2377, giving RI = -0.3449. The best RRF run improves from 0.2732 to 0.2930, giving RI = -0.0725 and DRI = 0.2724. In this internal protocol, lower absolute RI magnitude for RRF reflects a more stable already-high score, while the pivot shows larger relative movement because it starts much lower.
+\subsection{Pivot-Relative Temporal Change Metrics}
+
+The monthly curves show absolute performance, but LongEval-style analysis also asks how much a system changes relative to a pivot. We therefore compute five temporal-change metrics from the monthly split report using \texttt{official\_pyterrier\_dctr} as the pivot and nDCG@10 as the primary score. For a transition from earlier split $a$ to later split $b$, ARP is the later score, MARP is the mean of the earlier and later scores, and relative improvement is
+\[
+\mathrm{RI} = \frac{s_a - s_b}{s_a}.
+\]
+Negative RI means that the system improved from the earlier split to the later split; positive RI means degradation. DRI subtracts the pivot RI from the system RI, and ER is the ratio between system RI and pivot RI. These metrics should be read with ARP and MARP rather than alone, because a low-scoring system can show a large relative change from a very small baseline.
+
+\begin{table}[ht]
+\centering
+\caption{Temporal-change metrics for the March to March+April+May transition, using nDCG@10 and TA BM25 as the pivot.}
+\label{tab:temporal-change}
+\begin{tabular}{lrrrrr}
+\toprule
+Method & ARP & MARP & RI & DRI & ER \\
+\midrule
+RRF(TA,FT,Dense) & 0.2526 & 0.2477 & -0.0408 & 0.3041 & 0.1182 \\
+RRF(FT,Dense) & 0.2930 & 0.2831 & -0.0725 & 0.2724 & 0.2102 \\
+FT BM25 & 0.2495 & 0.2405 & -0.0784 & 0.2665 & 0.2273 \\
+Dense(Qwen) & 0.2316 & 0.2162 & -0.1531 & 0.1917 & 0.4440 \\
+Dense+temporal & 0.2917 & 0.2579 & -0.3017 & 0.0432 & 0.8749 \\
+TA BM25 pivot & 0.2377 & 0.2072 & -0.3449 & 0.0000 & 1.0000 \\
+TA rerank & 0.2655 & 0.2192 & -0.5364 & -0.1915 & 1.5552 \\
+TA rerank+temp+citation & 0.2165 & 0.1871 & -0.3734 & -0.0285 & 1.0828 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The most informative comparison is between high absolute performance and relative movement. RRF(FT,Dense) has the highest ARP in Table~\ref{tab:temporal-change}, while also having much smaller relative movement than the pivot (ER = 0.2102). RRF(TA,FT,Dense) has the smallest relative movement among the selected systems (ER = 0.1182), but its ARP is lower than RRF(FT,Dense). This distinction is exactly why we report both absolute scores and change metrics: a system can be robust because it barely moves, or useful because it remains both high-scoring and stable.
+
+The temporal overlay on Dense(Qwen) is also instructive. It has strong ARP and MARP under the monthly protocol, but its RI is closer to the pivot, meaning it changes more across the full March-to-May transition than the RRF systems. Meanwhile, some temporal/citation overlays have poor absolute performance despite moderate or large change values. These results suggest that temporal-change metrics are valuable diagnostics, but they cannot replace direct retrieval effectiveness metrics.
+
+\section{IR System Update Triggers}
+\label{sec:update-triggers}
 
 \section{Discussion}
 
-The main positive result is straightforward: full-text BM25 is the strongest current single-system foundation, and RRF over full-text BM25 plus dense title+abstract retrieval is the strongest robust candidate-generation strategy. This supports a practical architecture in which expensive or experimental reranking layers operate over a strong full-text lexical backbone and a fused candidate pool.
+The main positive result is that field choice matters strongly. Full-text BM25 is the best single-system anchor on snapshot-1 train, outperforming both official title+abstract BM25 and official dense retrieval. This suggests that, for LongEval-Sci, important relevance evidence often appears outside the abstract. At the same time, full text is not uniformly superior for every role: title+abstract remains attractive for compact indexing, dense retrieval, and reranking inputs because it reduces document length and noise.
 
-The temporal/citation result is more cautionary. Some temporal information helps the dense baseline, but uniform temporal scoring damages sparse systems badly. This suggests that temporal and citation features should not be globally added as bonuses. A stronger next system should use at least one of three safeguards: query-intent routing, learned score calibration, or feature-specific ablation over query groups.
+Fusion and reranking play different roles. Cross-encoder reranking improves over the official TA BM25 baseline on the whole-train setting, but RRF is more attractive as a robust candidate-generation strategy. RRF(FT,Dense) does not beat FT BM25 on nDCG@10, but it substantially improves Recall@1000 and performs best under cumulative monthly nDCG@10. This makes it a strong foundation for later reranking, because a reranker cannot promote relevant documents that never appear in the candidate pool.
 
-The monthly protocol is useful but limited. It filters documents and qrels by \texttt{publishedDate}, so it tests robustness under a controlled development view rather than the full official future-snapshot condition. It also changes query counts across splits because some queries lose all retained judgments. We therefore treat monthly results as model-selection diagnostics, not final longitudinal claims.
+RM3 is useful conceptually but weaker in the current configuration. It improves the query representation by adding feedback terms, yet it does not beat the official BM25 baseline or the stronger full-text baseline. This may be caused by short scientific queries, noisy pseudo-relevant feedback documents, or untuned feedback parameters. The result should not be interpreted as evidence that query expansion is unhelpful in general; rather, it shows that our current RM3 setting is not yet competitive with full-text retrieval or fusion.
+
+The temporal and citation overlays reveal a calibration problem. Dense+temporal improves over Dense(Qwen), which suggests that publication-time signals can help some semantic retrieval outputs. However, temporal overlays over sparse systems sharply hurt nDCG@10. This indicates that the current overlay can overpower the base relevance score and move weakly relevant temporally favored documents into top ranks. Citation features do not fix this issue in the current temporal+citation configuration, so future citation use should be evaluated as its own ablation and then combined only after calibration.
+
+The monthly protocol is useful as a development diagnostic but should not be overclaimed. It filters documents and qrels by \texttt{publishedDate}, so it simulates cumulative corpus growth inside snapshot-1 rather than official future-snapshot evaluation. Query counts also vary across splits because queries without retained judgments are excluded. For that reason, the monthly results are best used for model selection and robustness stress-testing, while official later snapshots should be used for final longitudinal conclusions when appropriate judgments are available.
 
 \section{Limitations}
 
-This draft has several important limitations. First, temporal and citation overlays are evaluated, but router-based and additive learned integration are not yet implemented as completed experiments. Second, citation leakage is controlled by filtering citation edges by creation time, but the reliability and coverage of citation timestamps still need a deeper audit. Third, no statistical significance tests are reported yet; future revisions should use paired tests over queries for nDCG@10 and MAP. Fourth, the monthly split uses filtered snapshot-1 judgments and may be affected by judgment incompleteness. Finally, the update-trigger section remains a design direction rather than a validated policy.
+This draft has several important limitations. First, temporal and citation overlays are evaluated, but learned router-based and additive integration are not yet completed experiments. Second, citation leakage is controlled by filtering citation edges by creation time when timestamps are available, but citation timestamp coverage still needs a deeper audit. Third, no statistical significance tests are reported yet; future revisions should use paired tests over queries for nDCG@10 and MAP. Fourth, the monthly split uses filtered snapshot-1 judgments and may be affected by judgment incompleteness. Fifth, most reported conclusions use DCTR qrels, while raw qrels are used only for sensitivity checks.
 
-\section{Future Work: Update Triggers}
+\section{Future Work}
 
-The next phase is to treat retrieval maintenance as a decision problem. Candidate trigger signals include top-k overlap drift, nDCG/MAP drops on held-out temporal splits, the fraction of newly published documents, citation-graph change, and disagreement between BM25, dense, and RRF rankings. Candidate actions should range from light to heavy: do nothing, refresh RRF, rerun temporal/citation reranking, build a delta index, refresh the full-text index, refresh the dense index, or retrain a reranker. The key open question is not simply whether to reindex, but which update action is worth its cost under the observed drift.
+The immediate next step for ranking is calibrated temporal and citation integration. This includes a citation-only ablation, a temporal-only ablation, a learned additive model, and a query-intent router that decides when recency, foundation, or citation features should matter. A second direction is per-query analysis: temporal features should be evaluated separately for current, foundational, evolving, and survey-like queries rather than averaged across all information needs. A third direction is stronger evaluation methodology, including raw-vs-DCTR sensitivity tables, paired significance tests, and later-snapshot evaluation when official judgments are available.
 
 \section{Conclusion}
 

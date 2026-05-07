@@ -30,36 +30,48 @@
 \@writefile{toc}{\contentsline {section}{\numberline {3}Task, Data, and Protocol}{3}{section.3}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Snapshot-1 month-filtered evaluation views. Documents are filtered by \texttt  {publishedDate}; qrels are retained only when the judged document is available in the cumulative document subset.}}{3}{table.1}\protected@file@percent }
 \newlabel{tab:monthly-protocol}{{1}{3}{Snapshot-1 month-filtered evaluation views. Documents are filtered by \texttt {publishedDate}; qrels are retained only when the judged document is available in the cumulative document subset}{table.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Models}{4}{section.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Model families and implementation details.}}{4}{table.2}\protected@file@percent }
-\newlabel{tab:model-protocol}{{2}{4}{Model families and implementation details}{table.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Temporal and Citation Overlay}{4}{section.5}\protected@file@percent }
-\newlabel{sec:temporal-citation}{{5}{4}{Temporal and Citation Overlay}{section.5}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Temporal and citation features used in the first-pass overlay. These definitions are implementation-level, not claims that each feature is currently beneficial.}}{5}{table.3}\protected@file@percent }
-\newlabel{tab:feature-definitions}{{3}{5}{Temporal and citation features used in the first-pass overlay. These definitions are implementation-level, not claims that each feature is currently beneficial}{table.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Results}{5}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Whole-Train Effectiveness}{5}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Temporal and Citation Overlay Results}{5}{subsection.6.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Snapshot-1 train DCTR results.}}{6}{table.4}\protected@file@percent }
-\newlabel{tab:whole-train}{{4}{6}{Snapshot-1 train DCTR results}{table.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Temporal and citation overlays on snapshot-1 train DCTR.}}{6}{table.5}\protected@file@percent }
-\newlabel{tab:temporal-results}{{5}{6}{Temporal and citation overlays on snapshot-1 train DCTR}{table.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Cumulative Monthly Robustness}{6}{subsection.6.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Cumulative monthly DCTR nDCG@10.}}{7}{table.6}\protected@file@percent }
-\newlabel{tab:monthly-results}{{6}{7}{Cumulative monthly DCTR nDCG@10}{table.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{7}{section.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}Limitations}{7}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Model Designs}{4}{section.4}\protected@file@percent }
+\newlabel{sec:model-designs}{{4}{4}{Model Designs}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Index and Run Reuse}{4}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Skeleton Retrieval Models}{4}{subsection.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Skeleton retrieval models. TA denotes title+abstract and FT denotes full text.}}{5}{table.2}\protected@file@percent }
+\newlabel{tab:skeleton-models}{{2}{5}{Skeleton retrieval models. TA denotes title+abstract and FT denotes full text}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Run-Level Fusion}{5}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Temporal Overlay}{6}{subsection.4.4}\protected@file@percent }
+\newlabel{sec:temporal-overlay}{{4.4}{6}{Temporal Overlay}{subsection.4.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Citation Overlay}{6}{subsection.4.5}\protected@file@percent }
+\newlabel{sec:citation-overlay}{{4.5}{6}{Citation Overlay}{subsection.4.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Complete Overlay Models}{7}{subsection.4.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Relationship between skeleton models and overlay variants.}}{7}{table.3}\protected@file@percent }
+\newlabel{tab:overlay-models}{{3}{7}{Relationship between skeleton models and overlay variants}{table.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{8}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Whole-Train Effectiveness}{8}{subsection.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Snapshot-1 train DCTR results.}}{8}{table.4}\protected@file@percent }
+\newlabel{tab:whole-train}{{4}{8}{Snapshot-1 train DCTR results}{table.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Temporal and Citation Overlay Results}{8}{subsection.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Temporal and citation overlays on snapshot-1 train DCTR.}}{8}{table.5}\protected@file@percent }
+\newlabel{tab:temporal-results}{{5}{8}{Temporal and citation overlays on snapshot-1 train DCTR}{table.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Cumulative Monthly Robustness}{9}{subsection.5.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Cumulative monthly DCTR nDCG@10.}}{9}{table.6}\protected@file@percent }
+\newlabel{tab:monthly-results}{{6}{9}{Cumulative monthly DCTR nDCG@10}{table.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Pivot-Relative Temporal Change Metrics}{9}{subsection.5.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Temporal-change metrics for the March to March+April+May transition, using nDCG@10 and TA BM25 as the pivot.}}{10}{table.7}\protected@file@percent }
+\newlabel{tab:temporal-change}{{7}{10}{Temporal-change metrics for the March to March+April+May transition, using nDCG@10 and TA BM25 as the pivot}{table.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}IR System Update Triggers}{10}{section.6}\protected@file@percent }
+\newlabel{sec:update-triggers}{{6}{10}{IR System Update Triggers}{section.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{10}{section.7}\protected@file@percent }
 \bibstyle{plain}
 \bibdata{longeval2026_yyd}
 \bibcite{alexander2025openwebsearch}{1}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Limitations}{11}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Future Work}{11}{section.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Conclusion}{11}{section.10}\protected@file@percent }
 \bibcite{alexander2024openwebsearch}{2}
 \bibcite{asadi_fast_2013}{3}
 \bibcite{bascur2023citationclusters}{4}
 \bibcite{belter2017ranking}{5}
 \bibcite{brown_fast_nodate}{6}
 \bibcite{cancellieri_longeval_2025_clean}{7}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Future Work: Update Triggers}{8}{section.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10}Conclusion}{8}{section.10}\protected@file@percent }
 \bibcite{cormack2009rrf}{8}
 \bibcite{dai_learning_2011}{9}
 \bibcite{gade_tempralm_2025}{10}
@@ -70,4 +82,4 @@
 \bibcite{mohoney_incremental_2024}{15}
 \bibcite{agh2025}{16}
 \bibcite{zobel_inverted_2006}{17}
-\gdef \@abspage@last{9}
+\gdef \@abspage@last{13}
