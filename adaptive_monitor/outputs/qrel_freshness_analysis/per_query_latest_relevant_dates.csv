@@ -1,0 +1,101 @@
+query_id,query_text,relevant_doc_count,dated_relevant_doc_count,missing_date_relevant_doc_count,earliest_relevant_published_date,latest_relevant_published_date,all_relevant_docs_by_window_start,all_relevant_docs_by_march_end,all_relevant_docs_by_april_end,all_relevant_docs_by_may_end
+072f1af47be326cbe50092e56576c209,character narrative analysis in animated series,16,16,0,2007-07-01,2025-02-23,True,True,True,True
+1f50741d080a161ff0cde0b31cfd685e,extracurricular activities,7,7,0,2013-01-01,2025-02-01,True,True,True,True
+cc613b02ecdaf8f4e2e025008eb8680c,ai in education,5,5,0,2017-01-01,2025-01-31,True,True,True,True
+9e8e1070b5a2631b490a235c3e49eea8,socio-economic status,12,8,4,1995-01-01,2025-01-21,True,True,True,True
+32dcf5f64658b023229d877bf4a86084,cyberbullying,10,10,0,2007-01-01,2025-01-21,True,True,True,True
+c5090df276f619e3516a862007a521d3,the long-term development of athletes,17,17,0,1994-06-01,2025-01-18,True,True,True,True
+d606782194b6084ebfe957206e386d01,progesterone supplementation menopause,34,34,0,2006-11-15,2025-01-01,True,True,True,True
+b5add364fa0fea003903862eb30c4ba1,marketing and ai,6,6,0,2019-01-03,2024-12-31,True,True,True,True
+721f5289656546b698a36571b2d86c4b,cold chain logistics for pharmaceuticals,34,34,0,2008-01-01,2024-12-31,True,True,True,True
+f86f41648ba908f4c469ef17802f0511,school marketing services,13,13,0,2016-06-04,2024-12-08,True,True,True,True
+457a31118f77a546ba448804ddbb23ab,beauty standards,33,33,0,2008-12-13,2024-12-01,True,True,True,True
+161820e44e7022cf44fd99a59bce5792,zero trust security in cybersecurity,20,19,1,2018-01-01,2024-12-01,True,True,True,True
+10fdb11b13fff4b822ddc239ad6f3969,vegetarian protein,29,28,1,2000-01-01,2024-12-01,True,True,True,True
+91fbd1574eab37719bf8b693b6f85628,mega construction projects,28,28,0,2011-01-01,2024-11-26,True,True,True,True
+58693f8e42bc57d9db6db40b90b142de,exploring the effectiveness of using filipino language in teaching mathematics and science,7,7,0,2016-01-01,2024-11-26,True,True,True,True
+286b151fe9f88f9457878c2655e4f2da,university research and sustainable development goals,16,16,0,2017-03-07,2024-11-12,True,True,True,True
+ebf4a2df691a9df61502f18150f2a9ee,online shopping,10,10,0,2005-01-01,2024-11-10,True,True,True,True
+d40a44b633a216fc65484a60dadd48ac,utilizing llm to identify entities in natural language text,21,21,0,2023-06-02,2024-11-09,True,True,True,True
+b8d04877eb27228be265b3bf332ec1b4,job portal for disabilities,41,40,1,2004-01-01,2024-11-01,True,True,True,True
+f9cfc9d84b800a51132ca858cc567e6e,supply chain covid 19,7,7,0,2021-04-30,2024-10-28,True,True,True,True
+45d19e089d62f6d06d3fbb1676ae4b85,pineapple fibers shoes,12,12,0,1956-01-01,2024-10-01,True,True,True,True
+123cf37ccef0961a82918ad95c391866,library marketing and social media,17,17,0,2013-07-12,2024-09-10,True,True,True,True
+328e016c9773ff748f749f1fdd081b8d,amyotrophic lateral sclerosis and tdp-43 aggregate,12,12,0,2024-01-01,2024-09-01,True,True,True,True
+a55562e661e2a0b1a29185e00439402a,sleep deprivation,6,5,1,2016-06-06,2024-08-06,True,True,True,True
+c95008170a16f8088d6b601bfdade573,biogas purification and caribbean,21,19,2,2011-01-01,2024-08-01,True,True,True,True
+c613c39de9464d090499baed3e86eec5,cocoa powder,2,2,0,2023-06-30,2024-07-26,True,True,True,True
+7fc59cf2e1511d45688b1b9e6c90b1f5,transducer and horn,24,21,3,2008-09-10,2024-07-15,True,True,True,True
+3a180af85b747f6a7c2f74ec1a6e8b24,looting heritage,26,26,0,2007-01-01,2024-07-12,True,True,True,True
+66aa4fe59b0d5d3465d108fde45ef3b3,eccentrically braced frames,29,29,0,2020-11-02,2024-07-05,True,True,True,True
+1c6ca51a558f678acf1b1d1a8b145f54,teacher and student relationship,5,4,1,2018-01-01,2024-07-01,True,True,True,True
+e7abd0f60b9f4306e06dcd05a3cf8a34,impact of artificial intelligence,2,2,0,2022-01-01,2024-06-28,True,True,True,True
+dc1849c0ec8ffd02455d02e00a690950,visual and auditory learning styles,3,3,0,2023-02-08,2024-06-24,True,True,True,True
+ff9451260a60844bedd2d4f42c434db4,tracer study of first batch of k-12 graduates,3,3,0,2021-01-15,2024-06-01,True,True,True,True
+ef8e207b13d16b374d21d649357dd43b,effects of technology on digital tools in learning,1,1,0,2024-06-01,2024-06-01,True,True,True,True
+e874f77079e2943bfe8c7ab5985bba33,ai education,8,8,0,2019-01-01,2024-05-15,True,True,True,True
+0e8e69ebcd11bc70aeb0102176cbf69b,fish based paper,28,21,7,1950-08-01,2024-05-15,True,True,True,True
+14d317d015117766bee743c1503b9307,remote working,1,1,0,2024-05-10,2024-05-10,True,True,True,True
+5a889567c7096c0801a004e4755d7c9d,online higher education in the uk,29,28,1,2008-01-01,2024-05-08,True,True,True,True
+5980d90c7c34207a2ea5476d8be72f7d,bereaved children and creative therapy,14,14,0,2009-01-01,2024-04-01,True,True,True,True
+3126294258753cc2e2eb7b7053bf2131,homophobia,8,7,1,2015-01-01,2024-03-22,True,True,True,True
+e7c142a4da595b78d3b4066ebf5d34e3,gamification in education,7,7,0,2013-01-01,2024-03-01,True,True,True,True
+3364789dac36e8123f8dd056561eaf33,remote work,6,6,0,2019-01-01,2024-01-03,True,True,True,True
+eb0c676dd89c26b532399101064cf7d2,social interaction and the academic performance of students,4,4,0,2020-09-01,2024-01-01,True,True,True,True
+b0819a255ce068f1a6a079fe31f530b3,hydropower in india,29,28,1,2010-11-01,2024-01-01,True,True,True,True
+a3d4d31b531c0372a9ea7fa1ae0e7015,assam commitment of the armed forces,10,8,2,1984-01-01,2024-01-01,True,True,True,True
+7583b65656affbcc148b545b75dfc968,online food delivery services,8,8,0,2020-07-02,2024-01-01,True,True,True,True
+1f4a02148d3138e7a04d14cca49f0f4e,privacy by design,14,14,0,2012-01-01,2024-01-01,True,True,True,True
+d57c8392cee04d71bf68efe07294f3c4,maladaptive decision making skills in hospitality students,2,2,0,2020-01-01,2023-12-28,True,True,True,True
+c62b2b80a8db46cbcb0866776a155ae9,pikalov military aircraft,8,6,2,1990-01-01,2023-12-01,True,True,True,True
+f2160ef29c1c99e11953a5465c7a10b3,working while studying,5,4,1,2016-04-06,2023-09-26,True,True,True,True
+2eff8040c4e28557c51361ab9b8db57d,zero trust security in cse,65,65,0,2009-01-01,2023-09-01,True,True,True,True
+1a2f5d355af40cba5cc9ad1ffddd114e,pirineos,39,37,2,1809-01-01,2023-08-01,True,True,True,True
+2d885b04956ddd2e729af5d7e6f50384,relationship between student engagement and academic outcomes,6,6,0,2016-01-01,2023-07-31,True,True,True,True
+23b98abd4686855f0ed05c6d1a01e2b9,sources of academic stress,7,7,0,2014-01-01,2023-07-06,True,True,True,True
+a40f25e65758d13cbdc2f0053175e050,school based feeding program,3,2,1,2020-05-30,2023-06-07,True,True,True,True
+faf500cb32740da36d22ed8e719f9484,relationship between technology and sleep,3,3,0,2011-11-28,2023-04-28,True,True,True,True
+19a43a2b512e5ddd5e1b336c958b892e,lgbtq youth tiktok,2,2,0,2022-04-15,2023-01-01,True,True,True,True
+2fae882aa26665d7522162f134babcdf,flooding warning alert system in philippines,4,4,0,2018-06-10,2022-12-01,True,True,True,True
+dfe9c87036812c15b429bfaa041ee6c2,how indigenous wound healing is preserved passed through generations,2,2,0,2019-02-11,2022-07-16,True,True,True,True
+aaefb77ea38b942acc70b430c5a84078,disruptive students,5,5,0,2015-01-01,2022-06-29,True,True,True,True
+667d3011d775d6892b99824e96fd5cc9,pandemic and reading comprehension,3,3,0,2021-01-01,2022-06-20,True,True,True,True
+f8170966870f22526a56eb87f181b12c,adapt climate change,15,5,10,2015-06-15,2022-05-31,True,True,True,True
+ef401e491a89991d822ec491f94e3639,standardized testing,15,14,1,2013-12-09,2022-04-29,True,True,True,True
+d469026fee5ebf4230d3ec5f9501e621,apartment management system,5,5,0,2006-01-01,2022-01-01,True,True,True,True
+99f4fe5aef26841974824242f9099457,agro based mobile application paper,19,15,4,2003-12-01,2021-11-01,True,True,True,True
+21e8c323e168b0813eff14fdac972f1f,online education bangladesh,3,3,0,2020-07-31,2021-09-02,True,True,True,True
+980a8949538c372771a8e07536e98ddd,influenza 2020 up to date,2,2,0,2021-01-01,2021-06-09,True,True,True,True
+35bb643809f197b68021794ad8ad1319,"drug use, family, adolescent, relationship",7,7,0,1999-01-01,2021-01-01,True,True,True,True
+1200cc678dce697633576f9941994baa,psychology human behavior,13,13,0,1995-05-01,2020-07-03,True,True,True,True
+38a5737828cd22eb5c45c3fbe66340d5,design of sewage treatment plant,7,6,1,2012-05-11,2020-06-30,True,True,True,True
+5a027ebb79a4b16c5ecb16737c2fec26,first-generation students,8,8,0,2018-01-01,2020-03-31,True,True,True,True
+f9ae0f99d7403b40d78e3d3d103d6a1c,freedom of speech,1,1,0,2020-03-09,2020-03-09,True,True,True,True
+e8ebed4fee9260028923885e9eb9a242,literacy and community,7,7,0,1999-01-01,2020-01-01,True,True,True,True
+7028b649b77f6ca3ff7b4170b9c27658,informal settlements and waste disposal,2,2,0,2017-01-01,2020-01-01,True,True,True,True
+35e64efe49a5eb9b5f9ee7e7464352fc,personal goals,7,7,0,2014-01-01,2019-10-01,True,True,True,True
+9415292a51163e822f6347f57cdfd762,the impact of ai-generated art to the creativity of special program in the arts,1,1,0,2019-07-11,2019-07-11,True,True,True,True
+cf5992cd1306b7aa71afb466b25f8195,stress management,10,9,1,2001-06-01,2019-07-01,True,True,True,True
+fefe337967a82517f54ffed125c4b843,cultural intelligence,1,1,0,2019-01-01,2019-01-01,True,True,True,True
+b6e83d494701496aabe6a6b0f308dbd5,manhattan project,3,3,0,2005-12-01,2019-01-01,True,True,True,True
+a64207e4bf8ec20e09918f9831197c50,history and memory,5,5,0,2010-01-01,2019-01-01,True,True,True,True
+9c6556134c7d06548f65d0e363b69f44,leisure activities,6,3,3,2014-01-01,2018-04-14,True,True,True,True
+82cd19fadb27746d99d5e6d818097910,effect lime and silica on compaction test,2,2,0,2016-01-01,2018-01-01,True,True,True,True
+30c3ebbc6708a3454d82f9a8c11796fa,memory and history,6,6,0,2005-10-01,2018-01-01,True,True,True,True
+838027a4fcf857b3d4ddfeebf94faad6,literature review of antenatal assessment,2,2,0,2013-01-22,2017-11-01,True,True,True,True
+34761729cc3fd73195d5840b733ca362,automation,18,10,8,1974-01-01,2017-09-21,True,True,True,True
+25affb391b5a4052cc6750a79fd6162f,proper generalized decomposition,1,1,0,2017-06-01,2017-06-01,True,True,True,True
+e54f68f74633d43b86d0247af6197544,mark twain,12,12,0,1869-01-01,2017-02-11,True,True,True,True
+d540f26d75ef66d68559ad827a280fd9,benefits and drawbacks of telecommunication,2,2,0,2010-01-01,2017-01-01,True,True,True,True
+504ba8f0091eef715f16ccbb63ed5ac9,sadat commitment of the armed forces,9,9,0,1995-09-01,2017-01-01,True,True,True,True
+38323ace1b617b418f533f54c09c7228,teacher engagement,1,1,0,2017-01-01,2017-01-01,True,True,True,True
+0b155c7fdc95ddd69962e106dfaed576,wagner soldier,9,9,0,1985-01-20,2017-01-01,True,True,True,True
+f559875a4f4af463696bfef04c775147,diaspora,12,9,3,2004-07-07,2016-07-01,True,True,True,True
+ba1277eed48fe5fc09db5513b8c4be8b,the sufi as the axis of the world:,1,1,0,2016-01-01,2016-01-01,True,True,True,True
+4eb1811f5597cbb51193ff49c7d79af9,bilingual education,2,2,0,2009-03-03,2013-11-30,True,True,True,True
+40a8df88721f3a9f1363c47c7d996d5e,civil engineering,6,5,1,1941-01-01,2013-11-10,True,True,True,True
+910db656ed939dbb0b017843db25e2b5,foreign aid,11,1,10,2013-09-01,2013-09-01,True,True,True,True
+343570543e89b17f992e31c939eb8baf,school bullying,4,3,1,2011-04-01,2012-09-19,True,True,True,True
+b2dd7a2e85f350103e0ad22796fb9b0a,cognitive coping mechanisms local literature,1,1,0,2012-01-01,2012-01-01,True,True,True,True
+27d5a858b54377ad38312dc515812683,teenage pregnancy,1,1,0,2010-01-01,2010-01-01,True,True,True,True
+d950d245c679cd89b456268c50b717f4,investigating learning preferences of students,1,1,0,2009-01-01,2009-01-01,True,True,True,True
