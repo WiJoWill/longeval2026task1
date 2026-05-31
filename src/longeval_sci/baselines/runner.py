@@ -7,7 +7,9 @@ import json
 import time
 from copy import deepcopy
 from dataclasses import dataclass
+import os
 from pathlib import Path
+from time import monotonic
 from typing import Any, cast
 
 from longeval_sci.config import (
@@ -93,6 +95,43 @@ def _repair_pyterrier_windows_rename(index_dir: Path) -> None:
                         )
                         return
                     time.sleep(1.0)
+
+
+def _iter_with_progress(records: Any, *, label: str, interval: int = 50000) -> Any:
+    start = monotonic()
+    count = 0
+    for count, record in enumerate(records, start=1):
+        if count == 1 or count % interval == 0:
+            elapsed = max(monotonic() - start, 0.001)
+            LOGGER.info(
+                "%s indexed stream progress: %s documents yielded (%.1f docs/sec)",
+                label,
+                count,
+                count / elapsed,
+            )
+        yield record
+    elapsed = max(monotonic() - start, 0.001)
+    LOGGER.info(
+        "%s indexed stream complete: %s documents yielded in %.1f seconds (%.1f docs/sec)",
+        label,
+        count,
+        elapsed,
+        count / elapsed,
+    )
+
+
+def _pyterrier_index_threads(config: ExperimentConfig) -> int:
+    if os.name == "nt":
+        return 1
+    return max(int(config.runtime.pyterrier_index_threads or 1), 1)
+
+
+def _pyterrier_indexer_kwargs(pt: Any, config: ExperimentConfig, text_mode: str) -> dict[str, Any]:
+    kwargs: dict[str, Any] = {"threads": _pyterrier_index_threads(config)}
+    if text_mode == "full_text":
+        kwargs["type"] = pt.terrier.index.IndexingType.SINGLEPASS
+        LOGGER.info("Using PyTerrier SINGLEPASS indexing for full_text to reduce Java heap pressure")
+    return kwargs
 
 
 def _legacy_lexical_index_candidates(config: ExperimentConfig, snapshot_id: str, text_mode: str) -> list[Path]:
@@ -422,7 +461,8 @@ def _run_official_pyterrier(bundle: DatasetBundle, config: ExperimentConfig, sna
         indexer = pt.IterDictIndexer(
             str(pt_index_dir.resolve()),
             overwrite=True,
-            meta={"docno": 100, "text": 20480},
+            meta={"docno": 100},
+            **_pyterrier_indexer_kwargs(pt, config, config.retrieval.text_mode),
         )
         docs = (
             {
@@ -463,7 +503,14 @@ def _run_snapshot_cache_pyterrier_lexical(
         indexer = pt.IterDictIndexer(
             str(pt_index_dir.resolve()),
             overwrite=True,
-            meta={"docno": 100, "text": 20480},
+            meta={"docno": 100},
+            **_pyterrier_indexer_kwargs(pt, config, text_mode),
+        )
+        indexer.index(
+            _iter_with_progress(
+                iter_snapshot_cache_text_records(config.dataset, snapshot_id, text_mode),
+                label=f"{snapshot_id}/{text_mode}",
+            )
         )
         indexer.index(iter_snapshot_cache_text_records(config.dataset, snapshot_id, text_mode))
         _repair_pyterrier_windows_rename(pt_index_dir)
@@ -497,7 +544,14 @@ def _run_snapshot_cache_pyterrier_rm3(
         indexer = pt.IterDictIndexer(
             str(pt_index_dir.resolve()),
             overwrite=True,
-            meta={"docno": 100, "text": 20480},
+            meta={"docno": 100},
+            **_pyterrier_indexer_kwargs(pt, config, text_mode),
+        )
+        indexer.index(
+            _iter_with_progress(
+                iter_snapshot_cache_text_records(config.dataset, snapshot_id, text_mode),
+                label=f"{snapshot_id}/{text_mode}",
+            )
         )
         indexer.index(iter_snapshot_cache_text_records(config.dataset, snapshot_id, text_mode))
         _repair_pyterrier_windows_rename(pt_index_dir)

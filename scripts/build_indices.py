@@ -11,7 +11,7 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from longeval_sci.baselines.runner import build_required_indices, clone_for_train_eval
+from longeval_sci.baselines.runner import build_required_indices, clone_for_snapshot, clone_for_train_eval
 from longeval_sci.config import load_config
 
 

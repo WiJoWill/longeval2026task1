@@ -1,0 +1,88 @@
+\begin{thebibliography}{10}
+
+\bibitem{alexander2025openwebsearch}
+Daria Alexander, Maik Fr{\"o}be, Gijs Hendriksen, Matthias Hagen, Djoerd Hiemstra, Martin Potthast, and Arjen~P. de~Vries.
+\newblock Team openwebsearch at longeval: Using historical data for scientific search.
+\newblock In {\em Working Notes of the Conference and Labs of the Evaluation Forum, CLEF 2025}, volume 4038 of {\em CEUR Workshop Proceedings}, pages 3316--3326, 2025.
+
+\bibitem{alexander2024openwebsearch}
+Daria Alexander, Maik Fr{\"o}be, Gijs Hendriksen, Ferdinand Schlatt, Matthias Hagen, Djoerd Hiemstra, Martin Potthast, and Arjen~P. de~Vries.
+\newblock Team openwebsearch at clef 2024: Longeval.
+\newblock In {\em Working Notes of CLEF 2024}, 2024.
+
+\bibitem{asadi_fast_2013}
+Nima Asadi and Jimmy Lin.
+\newblock Fast, {Incremental} {Inverted} {Indexing} in {Main} {Memory} for {Web}-{Scale} {Collections}, May 2013.
+\newblock arXiv:1305.0699 [cs].
+
+\bibitem{bascur2023citationclusters}
+Juan~Pablo Bascur, Suzan Verberne, Nees~Jan van Eck, and Ludo Waltman.
+\newblock Academic information retrieval using citation clusters: in-depth evaluation based on systematic reviews.
+\newblock {\em Scientometrics}, 128:2895--2921, 2023.
+
+\bibitem{belter2017ranking}
+Christopher~W. Belter.
+\newblock A relevance ranking method for citation-based search results.
+\newblock {\em Scientometrics}, 112(2):731--746, 2017.
+
+\bibitem{brown_fast_nodate}
+Eric~W Brown, James~P Callan, and W~Bruce Croft.
+\newblock Fast {Incremental} {Indexing} for {Full}-{Text} {Information} {Retrieval}.
+
+\bibitem{cancellieri_longeval_2025}
+Matteo Cancellieri, Alaa El-Ebshihy, Tobias Fink, Petra Galuščáková, Gabriela Gonzalez-Saez, Lorraine Goeuriot, David Iommi, Jüri Keller, Petr Knoth, Philippe Mulhem, Florina Piroi, David Pride, and Philipp Schaer.
+\newblock {LongEval} at {CLEF} 2025: {Longitudinal} {Evaluation} of {IR} {Model} {Performance}, March 2025.
+\newblock arXiv:2503.08541 [cs].
+
+\bibitem{cormack2009rrf}
+Gordon~V. Cormack, Charles L.~A. Clarke, and Stefan Buettcher.
+\newblock Reciprocal rank fusion outperforms condorcet and individual rank learning methods.
+\newblock In {\em Proceedings of the 32nd International ACM SIGIR Conference on Research and Development in Information Retrieval}, pages 758--759, 2009.
+
+\bibitem{dai_learning_2011}
+Na~Dai, Milad Shokouhi, and Brian~D. Davison.
+\newblock Learning to rank for freshness and relevance.
+\newblock In {\em Proceedings of the 34th international {ACM} {SIGIR} conference on {Research} and development in {Information} {Retrieval}}, pages 95--104, Beijing China, July 2011. ACM.
+
+\bibitem{gade_its_2024}
+Anoushka Gade and Jorjeta Jetcheva.
+\newblock It's {About} {Time}: {Incorporating} {Temporality} in {Retrieval} {Augmented} {Language} {Models}, January 2024.
+\newblock arXiv:2401.13222 [cs].
+
+\bibitem{janssens2015cocites}
+A.~Cecile J.~W. Janssens and Marta Gwinn.
+\newblock Novel citation-based search method for scientific literature: application to meta-analyses.
+\newblock {\em BMC Medical Research Methodology}, 15:84, 2015.
+
+\bibitem{janssens2020validation}
+A.~Cecile J.~W. Janssens, Marta Gwinn, J.~Elaine Brockman, Kimberley Powell, and Michael Goodman.
+\newblock Novel citation-based search method for scientific literature: a validation study.
+\newblock {\em BMC Medical Research Methodology}, 20:25, 2020.
+
+\bibitem{lavrenko2001relevance}
+Victor Lavrenko and W.~Bruce Croft.
+\newblock Relevance-based language models.
+\newblock In {\em Proceedings of the 24th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval}, pages 120--127, 2001.
+
+\bibitem{moffat_efficient_2023}
+Alistair Moffat and Joel Mackenzie.
+\newblock Efficient {Immediate}-{Access} {Dynamic} {Indexing}.
+\newblock {\em Information Processing \& Management}, 60(3):103248, May 2023.
+\newblock arXiv:2211.06030 [cs].
+
+\bibitem{mohoney_incremental_2024}
+Jason Mohoney, Anil Pacaci, Shihabur~Rahman Chowdhury, Umar~Farooq Minhas, Jeffery Pound, Cedric Renggli, Nima Reyhani, Ihab~F. Ilyas, Theodoros Rekatsinas, and Shivaram Venkataraman.
+\newblock Incremental {IVF} {Index} {Maintenance} for {Streaming} {Vector} {Search}, November 2024.
+\newblock arXiv:2411.00970 [cs].
+
+\bibitem{agh2025}
+Jan Stryszewski, Wiktor Prosowicz, Tomasz Kawiak, and Adrian Ja{\'s}kowiec.
+\newblock Agh ir at longeval: Improving scientific information retrieval with dense representations and cross-encoder re-ranking.
+\newblock In {\em Working Notes of CLEF 2025}, pages 3495--3503, 2025.
+
+\bibitem{zobel_inverted_2006}
+Justin Zobel and Alistair Moffat.
+\newblock Inverted files for text search engines.
+\newblock {\em ACM Computing Surveys}, 38(2):6, July 2006.
+
+\end{thebibliography}
