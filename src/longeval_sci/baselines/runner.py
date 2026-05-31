@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import logging
 import json
+import time
 from copy import deepcopy
 from dataclasses import dataclass
 import os
@@ -47,7 +48,53 @@ def _existing_dense_index_dir(index_dir: Path) -> bool:
 
 
 def _existing_pyterrier_index_dir(index_dir: Path) -> bool:
-    return (index_dir / "data.properties").exists()
+    return (index_dir / "data.properties").exists() or (index_dir / "data_1.properties").exists()
+
+
+def _pyterrier_index_properties_path(index_dir: Path) -> Path:
+    canonical = index_dir / "data.properties"
+    if canonical.exists():
+        return canonical
+    windows_fallback = index_dir / "data_1.properties"
+    if windows_fallback.exists():
+        return windows_fallback
+    return canonical
+
+
+def _repair_pyterrier_windows_rename(index_dir: Path) -> None:
+    """Repair Terrier indexes left with the temporary data_1 prefix on Windows."""
+    if (index_dir / "data.properties").exists() or not (index_dir / "data_1.properties").exists():
+        return
+    core_suffixes = (
+        "direct.bf",
+        "document.fsarrayfile",
+        "inverted.bf",
+        "lexicon.fsomapfile",
+        "lexicon.fsomaphash",
+        "lexicon.fsomapid",
+        "meta-0.fsomapfile",
+        "meta.idx",
+        "meta.zdata",
+        "properties",
+    )
+    for suffix in core_suffixes:
+        source = index_dir / f"data_1.{suffix}"
+        target = index_dir / f"data.{suffix}"
+        if source.exists() and not target.exists():
+            deadline = time.monotonic() + 90.0
+            while True:
+                try:
+                    source.rename(target)
+                    break
+                except PermissionError:
+                    if time.monotonic() >= deadline:
+                        LOGGER.warning(
+                            "Timed out renaming %s to %s on Windows; using data_1.properties as fallback",
+                            source.name,
+                            target.name,
+                        )
+                        return
+                    time.sleep(1.0)
 
 
 def _iter_with_progress(records: Any, *, label: str, interval: int = 50000) -> Any:
@@ -238,9 +285,11 @@ def _ensure_pyterrier_started(memory_limit_mb: int | None = 12288) -> Any:
     configure_java_home()
     configure_pyterrier_home()
     try:
-        pt.java.set_memory_limit(memory_limit_mb)
-        if not pt.java.started():
-            pt.java.init()
+        if pt.java.started():
+            return pt
+        if memory_limit_mb is not None:
+            pt.java.set_memory_limit(memory_limit_mb)
+        pt.java.init()
     except Exception as exc:
         raise RuntimeError(
             "PyTerrier could not start. Ensure `pyterrier[java]` is installed and JAVA_HOME points to a working JDK."
@@ -346,6 +395,42 @@ def _build_dense(config: ExperimentConfig, documents: list[Document], snapshot_i
             )
             fresh_retriever.build_index_from_documents(documents, rebuild_dir)
             return fresh_retriever
+
+        loaded_version = retriever.model_version
+        try:
+            import sentence_transformers as _st
+            current_version: str | None = _st.__version__
+        except Exception:
+            current_version = None
+        if loaded_version is not None and current_version is not None and loaded_version != current_version:
+            LOGGER.warning(
+                "Dense index at %s was built with sentence-transformers==%s but current version is %s; rebuilding",
+                dense_index_dir,
+                loaded_version,
+                current_version,
+            )
+            canonical_dir = canonical_dense_index_dir(
+                config,
+                snapshot_id,
+                text_mode,
+                config.retrieval.model_name,
+                backend_label="dense",
+            )
+            rebuild_dir = ensure_dir(canonical_dir) if canonical_dir is not None else dense_index_dir
+            fresh_retriever = DenseRetriever(
+                model_name=config.retrieval.model_name,
+                text_mode=text_mode,
+                normalize_embeddings=config.retrieval.normalize_embeddings,
+                query_prefix=config.retrieval.query_prefix,
+                document_prefix=config.retrieval.document_prefix,
+                batch_size=config.runtime.batch_size,
+                device=config.runtime.device,
+                encode_chunk_size=config.retrieval.encode_chunk_size,
+                search_chunk_size=config.retrieval.search_chunk_size,
+            )
+            fresh_retriever.build_index_from_documents(documents, rebuild_dir)
+            return fresh_retriever
+
         return retriever
 
     retriever.build_index_from_documents(documents, dense_index_dir)
@@ -370,8 +455,9 @@ def _run_official_pyterrier(bundle: DatasetBundle, config: ExperimentConfig, sna
     pt = _ensure_pyterrier_started(config.runtime.pyterrier_memory_mb)
 
     pt_index_dir = _resolve_pyterrier_index_dir(config, snapshot_id, config.retrieval.text_mode, create=True)
+    _repair_pyterrier_windows_rename(pt_index_dir)
 
-    if not (pt_index_dir / "data.properties").exists():
+    if not _existing_pyterrier_index_dir(pt_index_dir):
         indexer = pt.IterDictIndexer(
             str(pt_index_dir.resolve()),
             overwrite=True,
@@ -385,13 +471,14 @@ def _run_official_pyterrier(bundle: DatasetBundle, config: ExperimentConfig, sna
             }
             for document in bundle.documents
         )
-        indexer.index(_iter_with_progress(docs, label=f"{snapshot_id}/{config.retrieval.text_mode}"))
+        indexer.index(docs)
+        _repair_pyterrier_windows_rename(pt_index_dir)
 
-    index = pt.IndexFactory.of(str(pt_index_dir.resolve()))
+    index = pt.IndexFactory.of(str(_pyterrier_index_properties_path(pt_index_dir).resolve()))
     topics = pd.DataFrame([{"qid": query.query_id, "query": query.text} for query in bundle.queries])
     tokeniser = pt.java.autoclass("org.terrier.indexing.tokenisation.Tokeniser").getTokeniser()
     topics["query"] = topics["query"].apply(lambda value: " ".join(tokeniser.getTokens(value)))
-    run_frame = pt.terrier.Retriever(index, wmodel="BM25")(topics)
+    run_frame = pt.terrier.Retriever(index, wmodel="BM25", threads=1)(topics)
     return _pyterrier_to_results(run_frame, config.run_name, config.retrieval.top_k)
 
 
@@ -410,8 +497,9 @@ def _run_snapshot_cache_pyterrier_lexical(
 
     pt = _ensure_pyterrier_started(config.runtime.pyterrier_memory_mb)
     pt_index_dir = _resolve_pyterrier_index_dir(config, snapshot_id, text_mode, create=True)
+    _repair_pyterrier_windows_rename(pt_index_dir)
 
-    if not (pt_index_dir / "data.properties").exists():
+    if not _existing_pyterrier_index_dir(pt_index_dir):
         indexer = pt.IterDictIndexer(
             str(pt_index_dir.resolve()),
             overwrite=True,
@@ -424,12 +512,14 @@ def _run_snapshot_cache_pyterrier_lexical(
                 label=f"{snapshot_id}/{text_mode}",
             )
         )
+        indexer.index(iter_snapshot_cache_text_records(config.dataset, snapshot_id, text_mode))
+        _repair_pyterrier_windows_rename(pt_index_dir)
 
-    index = pt.IndexFactory.of(str(pt_index_dir.resolve()))
+    index = pt.IndexFactory.of(str(_pyterrier_index_properties_path(pt_index_dir).resolve()))
     topics = pd.DataFrame([{"qid": query.query_id, "query": query.text} for query in bundle.queries])
     tokeniser = pt.java.autoclass("org.terrier.indexing.tokenisation.Tokeniser").getTokeniser()
     topics["query"] = topics["query"].apply(lambda value: " ".join(tokeniser.getTokens(value)))
-    run_frame = pt.terrier.Retriever(index, wmodel="BM25")(topics)
+    run_frame = pt.terrier.Retriever(index, wmodel="BM25", threads=1)(topics)
     return _pyterrier_to_results(run_frame, run_name, top_k)
 
 
@@ -448,8 +538,9 @@ def _run_snapshot_cache_pyterrier_rm3(
 
     pt = _ensure_pyterrier_started(config.runtime.pyterrier_memory_mb)
     pt_index_dir = _resolve_pyterrier_index_dir(config, snapshot_id, text_mode, create=True)
+    _repair_pyterrier_windows_rename(pt_index_dir)
 
-    if not (pt_index_dir / "data.properties").exists():
+    if not _existing_pyterrier_index_dir(pt_index_dir):
         indexer = pt.IterDictIndexer(
             str(pt_index_dir.resolve()),
             overwrite=True,
@@ -462,13 +553,15 @@ def _run_snapshot_cache_pyterrier_rm3(
                 label=f"{snapshot_id}/{text_mode}",
             )
         )
+        indexer.index(iter_snapshot_cache_text_records(config.dataset, snapshot_id, text_mode))
+        _repair_pyterrier_windows_rename(pt_index_dir)
 
-    index = pt.IndexFactory.of(str(pt_index_dir.resolve()))
+    index = pt.IndexFactory.of(str(_pyterrier_index_properties_path(pt_index_dir).resolve()))
     topics = pd.DataFrame([{"qid": query.query_id, "query": query.text} for query in bundle.queries])
     tokeniser = pt.java.autoclass("org.terrier.indexing.tokenisation.Tokeniser").getTokeniser()
     topics["query"] = topics["query"].apply(lambda value: " ".join(tokeniser.getTokens(value)))
-    bm25_first = pt.terrier.Retriever(index, wmodel="BM25")
-    bm25_second = pt.terrier.Retriever(index, wmodel="BM25")
+    bm25_first = pt.terrier.Retriever(index, wmodel="BM25", threads=1)
+    bm25_second = pt.terrier.Retriever(index, wmodel="BM25", threads=1)
     rm3 = pt.rewrite.RM3(
         index,
         fb_terms=config.expansion.fb_terms,
