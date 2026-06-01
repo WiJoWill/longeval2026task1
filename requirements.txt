@@ -1,4 +1,5 @@
 numpy>=1.24
+pandas>=2.1
 PyYAML>=6.0
 ir-datasets-longeval>=0.0.12
 python-terrier>=1.0

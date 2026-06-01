@@ -21,19 +21,19 @@ from longeval_sci.io.trec import read_trec_run
 
 
 METHODS = [
-    ("official_pyterrier", "base", "outputs/official_pyterrier/snapshot-1-train/run.txt", "configs/official_pyterrier.yaml"),
-    ("official_pyterrier_dense", "base", "outputs/official_pyterrier_dense/snapshot-1-train/run.txt", "configs/official_pyterrier_dense.yaml"),
-    ("custom_lexical_fulltext", "base", "outputs/custom_lexical_fulltext/snapshot-1-train/run.txt", "configs/custom_lexical_fulltext.yaml"),
-    ("custom_title_abstract_rm3", "base", "outputs/custom_title_abstract_rm3/snapshot-1-train/run.txt", "configs/custom_title_abstract_rm3.yaml"),
-    ("custom_title_abstract_rerank", "base", "outputs/custom_title_abstract_rerank/snapshot-1-train/run.txt", "configs/custom_title_abstract_rerank.yaml"),
-    ("official_pyterrier_temporal", "temporal", "outputs/official_pyterrier_temporal/snapshot-1-train/run.txt", "configs/official_pyterrier_temporal.yaml"),
-    ("official_pyterrier_dense_temporal", "temporal", "outputs/official_pyterrier_dense_temporal/snapshot-1-train/run.txt", "configs/official_pyterrier_dense_temporal.yaml"),
-    ("custom_lexical_fulltext_temporal", "temporal", "outputs/custom_lexical_fulltext_temporal/snapshot-1-train/run.txt", "configs/custom_lexical_fulltext_temporal.yaml"),
-    ("custom_title_abstract_rm3_temporal", "temporal", "outputs/custom_title_abstract_rm3_temporal/snapshot-1-train/run.txt", "configs/custom_title_abstract_rm3_temporal.yaml"),
-    ("custom_title_abstract_rerank_temporal", "temporal", "outputs/custom_title_abstract_rerank_temporal/snapshot-1-train/run.txt", "configs/custom_title_abstract_rerank_temporal.yaml"),
-    ("official_pyterrier_temporal_citation", "temporal_citation", "outputs/official_pyterrier_temporal_citation/snapshot-1-train/run.txt", "configs/official_pyterrier_temporal_citation.yaml"),
-    ("custom_lexical_fulltext_temporal_citation", "temporal_citation", "outputs/custom_lexical_fulltext_temporal_citation/snapshot-1-train/run.txt", "configs/custom_lexical_fulltext_temporal_citation.yaml"),
-    ("custom_title_abstract_rerank_temporal_citation", "temporal_citation", "outputs/custom_title_abstract_rerank_temporal_citation/snapshot-1-train/run.txt", "configs/custom_title_abstract_rerank_temporal_citation.yaml"),
+    ("official_pyterrier", "base", "outputs/official_pyterrier/snapshot-1-train/run.txt", "configs/base/official_pyterrier.yaml"),
+    ("official_pyterrier_dense", "base", "outputs/official_pyterrier_dense/snapshot-1-train/run.txt", "configs/base/official_pyterrier_dense.yaml"),
+    ("custom_lexical_fulltext", "base", "outputs/custom_lexical_fulltext/snapshot-1-train/run.txt", "configs/base/custom_lexical_fulltext.yaml"),
+    ("custom_title_abstract_rm3", "base", "outputs/custom_title_abstract_rm3/snapshot-1-train/run.txt", "configs/base/custom_title_abstract_rm3.yaml"),
+    ("custom_title_abstract_rerank", "base", "outputs/custom_title_abstract_rerank/snapshot-1-train/run.txt", "configs/base/custom_title_abstract_rerank.yaml"),
+    ("official_pyterrier_temporal", "temporal", "outputs/official_pyterrier_temporal/snapshot-1-train/run.txt", "configs/temporal/official_pyterrier_temporal.yaml"),
+    ("official_pyterrier_dense_temporal", "temporal", "outputs/official_pyterrier_dense_temporal/snapshot-1-train/run.txt", "configs/temporal/official_pyterrier_dense_temporal.yaml"),
+    ("custom_lexical_fulltext_temporal", "temporal", "outputs/custom_lexical_fulltext_temporal/snapshot-1-train/run.txt", "configs/temporal/custom_lexical_fulltext_temporal.yaml"),
+    ("custom_title_abstract_rm3_temporal", "temporal", "outputs/custom_title_abstract_rm3_temporal/snapshot-1-train/run.txt", "configs/temporal/custom_title_abstract_rm3_temporal.yaml"),
+    ("custom_title_abstract_rerank_temporal", "temporal", "outputs/custom_title_abstract_rerank_temporal/snapshot-1-train/run.txt", "configs/temporal/custom_title_abstract_rerank_temporal.yaml"),
+    ("official_pyterrier_temporal_citation", "temporal_citation", "outputs/official_pyterrier_temporal_citation/snapshot-1-train/run.txt", "configs/temporal/official_pyterrier_temporal_citation.yaml"),
+    ("custom_lexical_fulltext_temporal_citation", "temporal_citation", "outputs/custom_lexical_fulltext_temporal_citation/snapshot-1-train/run.txt", "configs/temporal/custom_lexical_fulltext_temporal_citation.yaml"),
+    ("custom_title_abstract_rerank_temporal_citation", "temporal_citation", "outputs/custom_title_abstract_rerank_temporal_citation/snapshot-1-train/run.txt", "configs/temporal/custom_title_abstract_rerank_temporal_citation.yaml"),
     ("rrf_bm25_ta_dense_ta", "fusion", "outputs/rrf_bm25_ta_dense_ta/snapshot-1-train/run.txt", "configs/base/rrf_bm25_ta_dense_ta.yaml"),
     ("rrf_bm25_ft_dense_ta", "fusion", "outputs/rrf_bm25_ft_dense_ta/snapshot-1-train/run.txt", "configs/base/rrf_bm25_ft_dense_ta.yaml"),
     ("rrf_bm25_ta_bm25_ft_dense_ta", "fusion", "outputs/rrf_bm25_ta_bm25_ft_dense_ta/snapshot-1-train/run.txt", "configs/base/rrf_bm25_ta_bm25_ft_dense_ta.yaml"),
@@ -96,7 +96,7 @@ def main() -> None:
     report_dir = ROOT / args.report_dir
     rows: list[dict[str, object]] = []
     for variant in ("dctr", "raw"):
-        qrels = load_qrels(clone_for_train_eval(load_config("configs/official_pyterrier.yaml"), qrels_variant=variant).dataset, "snapshot-1")
+        qrels = load_qrels(clone_for_train_eval(load_config("configs/base/official_pyterrier.yaml"), qrels_variant=variant).dataset, "snapshot-1")
         for method, family, run_path_text, config_path in METHODS:
             run_path = ROOT / run_path_text
             if not run_path.exists():

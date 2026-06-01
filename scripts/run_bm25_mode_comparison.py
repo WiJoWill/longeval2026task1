@@ -29,10 +29,10 @@ MONTHLY_SPLITS = [
     {"name": "march_april_may", "months": [3, 4, 5]},
 ]
 TEMPORAL_MODES = {
-    "bm25_ft_direct": "configs/custom_title_abstract_rerank_temporal.yaml",
-    "bm25_ft_citation_only": "configs/custom_title_abstract_rerank_citation_only.yaml",
-    "bm25_ft_additive": "configs/custom_title_abstract_rerank_additive.yaml",
-    "bm25_ft_router": "configs/custom_title_abstract_rerank_router.yaml",
+    "bm25_ft_direct": "configs/temporal/custom_title_abstract_rerank_temporal.yaml",
+    "bm25_ft_citation_only": "configs/temporal/custom_title_abstract_rerank_citation_only.yaml",
+    "bm25_ft_additive": "configs/temporal/custom_title_abstract_rerank_additive.yaml",
+    "bm25_ft_router": "configs/temporal/custom_title_abstract_rerank_router.yaml",
 }
 
 
@@ -110,7 +110,7 @@ def main() -> None:
 
     # Load dataset bundle once (shared across all modes)
     base_config = clone_for_train_eval(
-        load_config("configs/custom_lexical_fulltext.yaml"),
+        load_config("configs/base/custom_lexical_fulltext.yaml"),
         qrels_variant=args.qrels_variant,
     )
     bundle = load_dataset_bundle(base_config.dataset, SNAPSHOT_ID)

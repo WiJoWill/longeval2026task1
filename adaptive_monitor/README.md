@@ -2,7 +2,7 @@
 
 Monitoring and daily-split evaluation for the chosen production model: `custom_lexical_fulltext` (BM25 full text).
 
-Does NOT modify any other folder. Reuses existing source code from `src/` and configs from `configs/`.
+This folder does not modify any other part of the repository. It reuses source code from `src/` and configs from `configs/`.
 
 ## Scripts
 
@@ -10,11 +10,11 @@ Does NOT modify any other folder. Reuses existing source code from `src/` and co
 Runs from document metadata only. No run.txt required.
 
 Outputs:
-- `outputs/collection_analytics/daily_doc_counts.csv` — new docs and cumulative count per day
-- `outputs/collection_analytics/weekly_doc_counts.csv` — same, aggregated by week
-- `outputs/collection_analytics/staleness_rate.csv` — Doc Staleness Rate per weekly cutoff
-- `outputs/collection_analytics/temporal_gap.csv` — Temporal Gap per weekly cutoff
-- `outputs/collection_analytics/summary.json` — top-level summary stats
+- `adaptive_monitor/outputs/collection_analytics/daily_doc_counts.csv` - new docs and cumulative count per day
+- `adaptive_monitor/outputs/collection_analytics/weekly_doc_counts.csv` - same, aggregated by week
+- `adaptive_monitor/outputs/collection_analytics/staleness_rate.csv` - Doc Staleness Rate per weekly cutoff
+- `adaptive_monitor/outputs/collection_analytics/temporal_gap.csv` - Temporal Gap per weekly cutoff
+- `adaptive_monitor/outputs/collection_analytics/summary.json` - top-level summary stats
 
 Run:
     python adaptive_monitor/collection_analytics.py
@@ -33,8 +33,8 @@ Implemented trigger rules:
   - optional `rank_stability_drop > 20%` for 3 consecutive periods, if a rank-stability CSV is supplied
 
 Outputs:
-- `outputs/reindex_pipeline/trigger_decisions.csv`
-- `outputs/reindex_pipeline/trigger_decisions.json`
+- `adaptive_monitor/outputs/reindex_pipeline/trigger_decisions.csv`
+- `adaptive_monitor/outputs/reindex_pipeline/trigger_decisions.json`
 
 Run:
     python adaptive_monitor/trigger_decision.py
@@ -68,8 +68,8 @@ Expected input is CSV or JSON rows with any of these columns:
 
 Drop/rise values can be ratios (`0.06`) or percentages (`6`). The script writes:
 
-- `outputs/drift_policy/drift_policy_decisions.csv`
-- `outputs/drift_policy/drift_policy_decisions.json`
+- `adaptive_monitor/outputs/drift_policy/drift_policy_decisions.csv`
+- `adaptive_monitor/outputs/drift_policy/drift_policy_decisions.json`
 
 Run:
     python adaptive_monitor/drift_policy.py --input path/to/drift_signals.csv
@@ -117,7 +117,7 @@ Run:
 
 To regenerate the run file first:
     python scripts/run_baseline.py \
-        --config configs/custom_lexical_fulltext.yaml \
+        --config configs/base/custom_lexical_fulltext.yaml \
         --snapshot-id snapshot-1 \
         --train-snapshot1
 

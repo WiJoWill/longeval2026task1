@@ -58,7 +58,7 @@ def main() -> None:
     """
     parser = argparse.ArgumentParser(description="Run or reuse snapshot-1 train baseline results and evaluate month splits.")
     parser.add_argument("--config", required=True, help="Path to baseline config.")
-    parser.add_argument("--plan", default="configs/snapshot1_monthly_eval.yaml", help="Month-split plan YAML.")
+    parser.add_argument("--plan", default="configs/plans/snapshot1_monthly_eval.yaml", help="Month-split plan YAML.")
     parser.add_argument("--qrels-variant", default="dctr", choices=["dctr", "raw"], help="Train qrels variant.")
     parser.add_argument("--reuse-existing-run", action="store_true", help="Reuse an existing snapshot-1-train run if present.")
     parser.add_argument("--run-path", help="Optional explicit run file to evaluate instead of the config-derived output path.")

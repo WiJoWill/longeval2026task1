@@ -19,7 +19,7 @@ from longeval_sci.reporting.sweeps import SweepDescriptor, write_rerank_sweep_ou
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run rerank sweeps on snapshot-1 train.")
-    parser.add_argument("--config", required=True, help="Base config path, e.g. configs/custom_dense_rerank.yaml")
+    parser.add_argument("--config", required=True, help="Base config path, e.g. configs/base/custom_title_abstract_rerank.yaml")
     parser.add_argument("--qrels-variant", default="dctr", choices=["dctr", "raw"], help="Train qrels variant.")
     parser.add_argument(
         "--candidate-k",

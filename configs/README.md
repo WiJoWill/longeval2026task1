@@ -10,4 +10,4 @@ The canonical config tree is grouped into:
 - `plans/`
   - reporting and evaluation plans
 
-The top-level config files are kept as compatibility wrappers so existing commands still work.
+Top-level config wrappers were removed to keep the tree compact. Use the subdirectories directly.

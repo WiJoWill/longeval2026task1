@@ -30,7 +30,7 @@ from longeval_sci.io.dataset import load_dataset_bundle
 from longeval_sci.io.trec import read_trec_run
 
 METRICS = ["ndcg_cut_10", "ndcg_cut_1000", "map", "recall_100", "recall_1000"]
-CONFIG_PATH = ROOT / "configs" / "custom_lexical_fulltext.yaml"
+CONFIG_PATH = ROOT / "configs" / "base" / "custom_lexical_fulltext.yaml"
 SNAPSHOT_ID = "snapshot-1"
 DATE_FIELD = "publishedDate"
 
@@ -243,7 +243,7 @@ def main() -> None:
     if not run_path.exists():
         print(f"ERROR: run file not found at {run_path}")
         print("Re-run BM25 retrieval first:")
-        print("  python scripts/run_baseline.py --config configs/custom_lexical_fulltext.yaml --snapshot-id snapshot-1-train --train-snapshot1")
+        print("  python scripts/run_baseline.py --config configs/base/custom_lexical_fulltext.yaml --snapshot-id snapshot-1-train --train-snapshot1")
         sys.exit(1)
 
     print(f"Evaluating {run_path} with step={args.step_days} days ...")
