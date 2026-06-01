@@ -28,7 +28,7 @@ def _load_plan(path: str) -> dict:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run the canonical LongEval-Sci baseline suite.")
-    parser.add_argument("--plan", default="configs/all_snapshots_reporting.yaml", help="Reporting plan YAML.")
+    parser.add_argument("--plan", default="configs/plans/all_snapshots_reporting.yaml", help="Reporting plan YAML.")
     args = parser.parse_args()
 
     plan = _load_plan(args.plan)

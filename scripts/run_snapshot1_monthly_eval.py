@@ -46,9 +46,19 @@ def _load_monthly_plan(path: str | Path) -> dict:
 
 
 def main() -> None:
+    """
+    Run or reuse a "snapshot-1" baseline training run and evaluate configured month-based splits.
+    
+    Parses CLI arguments to locate a baseline config and a monthly split plan, prepares a training-evaluation
+    configuration (respecting the selected qrels variant), and either reuses an existing snapshot-1 run or
+    triggers a new baseline run. Loads the monthly split plan (supporting defaults) and evaluates each
+    specified split by filtering the run by month ranges (uses `publishedDate` when `date_field` is not set
+    in the plan). Collects per-split results and per-query rows, writes report artifacts to the plan's
+    output directory, and prints the produced artifact paths to stdout.
+    """
     parser = argparse.ArgumentParser(description="Run or reuse snapshot-1 train baseline results and evaluate month splits.")
     parser.add_argument("--config", required=True, help="Path to baseline config.")
-    parser.add_argument("--plan", default="configs/snapshot1_monthly_eval.yaml", help="Month-split plan YAML.")
+    parser.add_argument("--plan", default="configs/plans/snapshot1_monthly_eval.yaml", help="Month-split plan YAML.")
     parser.add_argument("--qrels-variant", default="dctr", choices=["dctr", "raw"], help="Train qrels variant.")
     parser.add_argument("--reuse-existing-run", action="store_true", help="Reuse an existing snapshot-1-train run if present.")
     parser.add_argument("--run-path", help="Optional explicit run file to evaluate instead of the config-derived output path.")
@@ -77,7 +87,7 @@ def main() -> None:
             snapshot_id="snapshot-1",
             run_path=run_path,
             metrics=config.metrics,
-            date_field=monthly_cfg.get("date_field", "updatedDate"),
+            date_field=monthly_cfg.get("date_field", "publishedDate"),
             months=list(split["months"]),
             split_name=str(split["name"]),
             minimum_qrels_per_query=int(monthly_cfg.get("minimum_qrels_per_query", 1)),

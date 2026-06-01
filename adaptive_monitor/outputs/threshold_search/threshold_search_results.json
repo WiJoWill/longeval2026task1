@@ -1,0 +1,1233 @@
+{
+  "window_start": "2025-03-01",
+  "window_end": "2026-03-08",
+  "candidate_count": 5760,
+  "in_range_count": 720,
+  "top_results": [
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.03,
+        "temporal_gap_growth_days": 20,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.0300; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.03,
+        "temporal_gap_growth_days": 30,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.0300; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.03,
+        "temporal_gap_growth_days": 60,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.0300; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.03,
+        "temporal_gap_growth_days": 120,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.0300; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.03,
+        "temporal_gap_growth_days": 240,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.0300; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.1,
+        "temporal_gap_growth_days": 20,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.1000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.1,
+        "temporal_gap_growth_days": 30,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.1000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.1,
+        "temporal_gap_growth_days": 60,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.1000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.1,
+        "temporal_gap_growth_days": 120,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.1000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.1,
+        "temporal_gap_growth_days": 240,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.1000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.25,
+        "temporal_gap_growth_days": 20,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.2500; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.25,
+        "temporal_gap_growth_days": 30,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.2500; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.25,
+        "temporal_gap_growth_days": 60,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.2500; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.25,
+        "temporal_gap_growth_days": 120,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.2500; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.25,
+        "temporal_gap_growth_days": 240,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.2500; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.5,
+        "temporal_gap_growth_days": 20,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.5000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.5,
+        "temporal_gap_growth_days": 30,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.5000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.5,
+        "temporal_gap_growth_days": 60,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.5000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.5,
+        "temporal_gap_growth_days": 120,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.5000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 0.5,
+        "temporal_gap_growth_days": 240,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>0.5000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 1.0,
+        "temporal_gap_growth_days": 20,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>1.0000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 1.0,
+        "temporal_gap_growth_days": 30,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>1.0000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 1.0,
+        "temporal_gap_growth_days": 60,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>1.0000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 1.0,
+        "temporal_gap_growth_days": 120,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>1.0000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    },
+    {
+      "thresholds": {
+        "staleness_rate": 0.8,
+        "coverage_gap": 1.0,
+        "temporal_gap_growth_days": 240,
+        "velocity_multiplier": 12.0,
+        "rank_stability_drop": 0.2,
+        "rank_stability_periods": 3,
+        "baseline_weeks": 8
+      },
+      "update_count": 8,
+      "avg_interval_weeks": 3.14,
+      "min_interval_weeks": 1,
+      "max_interval_weeks": 14,
+      "intervals_weeks": [
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        14
+      ],
+      "update_weeks": [
+        "2025-05-12",
+        "2025-05-19",
+        "2025-06-02",
+        "2025-06-09",
+        "2025-06-16",
+        "2025-06-30",
+        "2025-07-07",
+        "2025-10-13"
+      ],
+      "reason_mix": {
+        "velocity_only": 7,
+        "stale_coverage_only": 0,
+        "mixed": 1
+      },
+      "sample_reasons": [
+        "velocity_per_day=3055.14>12.00x baseline=184.95",
+        "velocity_per_day=2549.43>12.00x baseline=184.95",
+        "velocity_per_day=3888.86>12.00x baseline=184.95",
+        "velocity_per_day=3139.71>12.00x baseline=184.95",
+        "velocity_per_day=7136.00>12.00x baseline=184.95",
+        "velocity_per_day=3340.14>12.00x baseline=184.95",
+        "velocity_per_day=4403.86>12.00x baseline=184.95",
+        "staleness_rate=0.8537>0.8000 and coverage_gap=3227.0460>1.0000; velocity_per_day=4344.43>12.00x baseline=184.95"
+      ]
+    }
+  ]
+}

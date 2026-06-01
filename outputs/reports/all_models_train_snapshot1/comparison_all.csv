@@ -1,5 +1,9 @@
 method,family,qrels_variant,run_path,ndcg_cut_10,ndcg_cut_1000,map,recall_100,recall_1000
+bm25_ft_direct,temporal,dctr,outputs/bm25_ft_direct/snapshot-1-train/run.txt,0.3588489672335167,0.5294687541418327,0.31233780528002264,0.77307383391096,0.924542770069642
+bm25_ft_additive,temporal_citation,dctr,outputs/bm25_ft_additive/snapshot-1-train/run.txt,0.3311724603575761,0.5088136743657491,0.28632758855523405,0.7393793873631185,0.924542770069642
+bm25_ft_router,temporal_citation,dctr,outputs/bm25_ft_router/snapshot-1-train/run.txt,0.3311186054411368,0.5086996970346782,0.2860666191232564,0.7393793873631185,0.924542770069642
 custom_lexical_fulltext,base,dctr,outputs\custom_lexical_fulltext\snapshot-1-train\run.txt,0.33017325367375333,0.5077353847617554,0.28526696916176536,0.7393793873631186,0.9245427700696421
+bm25_ft_citation_only,temporal_citation,dctr,outputs/bm25_ft_citation_only/snapshot-1-train/run.txt,0.3301732536737532,0.507735688920998,0.28526728758188374,0.7393793873631185,0.924542770069642
 custom_title_abstract_rerank,base,dctr,outputs\custom_title_abstract_rerank\snapshot-1-train\run.txt,0.3221555267026372,0.48206049747119795,0.2777275142389519,0.6952075123579022,0.8580615587340512
 rrf_bm25_ft_dense_ta,fusion,dctr,outputs\rrf_bm25_ft_dense_ta\snapshot-1-train\run.txt,0.31753078043128113,0.517334165741915,0.27488404402362604,0.7806318970413293,0.9667380959574122
 official_pyterrier_dense_temporal,temporal,dctr,outputs\official_pyterrier_dense_temporal\snapshot-1-train\run.txt,0.3068637710038839,0.46294940745361984,0.2551414679180851,0.6400205170195461,0.8613187064152928
@@ -11,10 +15,14 @@ custom_title_abstract_rerank_temporal,temporal,dctr,outputs\custom_title_abstrac
 rrf_bm25_ta_dense_ta,fusion,dctr,outputs\rrf_bm25_ta_dense_ta\snapshot-1-train\run.txt,0.2664671000570277,0.4544371609355563,0.22033488716155103,0.6700816039623371,0.9022516236303534
 custom_title_abstract_rerank_temporal_citation,temporal_citation,dctr,outputs\custom_title_abstract_rerank_temporal_citation\snapshot-1-train\run.txt,0.2542975537573265,0.4194464056312183,0.2220408782157266,0.5450978892114342,0.8580615587340512
 custom_title_abstract_rm3_temporal,temporal,dctr,outputs\custom_title_abstract_rm3_temporal\snapshot-1-train\run.txt,0.015410805851111813,0.1841962978717191,0.01443493665203539,0.043284455064881024,0.8701397990870099
-custom_lexical_fulltext_temporal,temporal,dctr,outputs\custom_lexical_fulltext_temporal\snapshot-1-train\run.txt,0.008790498408515724,0.1935068715577685,0.009105857390364585,0.021283177095309136,0.9245427700696421
-custom_lexical_fulltext_temporal_citation,temporal_citation,dctr,outputs\custom_lexical_fulltext_temporal_citation\snapshot-1-train\run.txt,0.008790498408515724,0.19350512702215605,0.009101992660902215,0.021283177095309136,0.9245427700696421
+custom_lexical_fulltext_temporal,temporal,dctr,outputs/custom_lexical_fulltext_temporal/snapshot-1-train/run.txt,0.3588489672335167,0.5294687541418327,0.31233780528002264,0.77307383391096,0.924542770069642
+custom_lexical_fulltext_temporal_citation,temporal_citation,dctr,outputs/custom_lexical_fulltext_temporal_citation/snapshot-1-train/run.txt,0.3588489672335167,0.5294687541418327,0.31233780528002264,0.77307383391096,0.924542770069642
 official_pyterrier_temporal,temporal,dctr,outputs\official_pyterrier_temporal\snapshot-1-train\run.txt,0.00534218214919156,0.17504792064843142,0.008355203498226375,0.02983068253022614,0.8580615587340512
 official_pyterrier_temporal_citation,temporal_citation,dctr,outputs\official_pyterrier_temporal_citation\snapshot-1-train\run.txt,0.0045633974058634005,0.17489515796595648,0.008488759149449812,0.02983068253022614,0.8580615587340512
+bm25_ft_direct,temporal,raw,outputs/bm25_ft_direct/snapshot-1-train/run.txt,0.3932341504767556,0.5733969539713911,0.3168518322465348,0.7665469767811617,0.92053778322642
+bm25_ft_additive,temporal_citation,raw,outputs/bm25_ft_additive/snapshot-1-train/run.txt,0.36569575672846966,0.5515405856070937,0.29089038042065435,0.7323558145307222,0.92053778322642
+bm25_ft_router,temporal_citation,raw,outputs/bm25_ft_router/snapshot-1-train/run.txt,0.36563369740036583,0.5513944567341111,0.2906234302428125,0.7323558145307222,0.92053778322642
+bm25_ft_citation_only,temporal_citation,raw,outputs/bm25_ft_citation_only/snapshot-1-train/run.txt,0.36365362576100535,0.5503706395017534,0.28990783902931777,0.7323558145307222,0.92053778322642
 custom_lexical_fulltext,base,raw,outputs\custom_lexical_fulltext\snapshot-1-train\run.txt,0.3636536257610053,0.5503703274946872,0.28990752060919944,0.7323558145307223,0.9205377832264199
 rrf_bm25_ft_dense_ta,fusion,raw,outputs\rrf_bm25_ft_dense_ta\snapshot-1-train\run.txt,0.3531988902403789,0.5647836123829151,0.28866176014545586,0.7740999396196657,0.9608978846980832
 official_pyterrier_dense_temporal,temporal,raw,outputs\official_pyterrier_dense_temporal\snapshot-1-train\run.txt,0.3397387175500437,0.5042330573226929,0.26119494571003377,0.6349419779115955,0.8555038235857043
@@ -27,7 +35,7 @@ rrf_bm25_ta_dense_ta,fusion,raw,outputs\rrf_bm25_ta_dense_ta\snapshot-1-train\ru
 custom_title_abstract_rerank_temporal,temporal,raw,outputs\custom_title_abstract_rerank_temporal\snapshot-1-train\run.txt,0.28693982856394196,0.4639271660765384,0.23750731000778194,0.5477126324672934,0.856086684751824
 custom_title_abstract_rerank_temporal_citation,temporal_citation,raw,outputs\custom_title_abstract_rerank_temporal_citation\snapshot-1-train\run.txt,0.2711853886239736,0.4515776899633988,0.22299158217706883,0.5497095561392777,0.856086684751824
 custom_title_abstract_rm3_temporal,temporal,raw,outputs\custom_title_abstract_rm3_temporal\snapshot-1-train\run.txt,0.012934742646658124,0.2009091837824814,0.010667561789472013,0.03774106381560742,0.8688310824768226
-custom_lexical_fulltext_temporal,temporal,raw,outputs\custom_lexical_fulltext_temporal\snapshot-1-train\run.txt,0.009538898588541435,0.21297006181326417,0.009455255608688106,0.02171799228012432,0.9205377832264199
-custom_lexical_fulltext_temporal_citation,temporal_citation,raw,outputs\custom_lexical_fulltext_temporal_citation\snapshot-1-train\run.txt,0.009538898588541435,0.2129655131244381,0.009450941918012247,0.02171799228012432,0.9205377832264199
+custom_lexical_fulltext_temporal,temporal,raw,outputs/custom_lexical_fulltext_temporal/snapshot-1-train/run.txt,0.3932341504767556,0.5733969539713911,0.3168518322465348,0.7665469767811617,0.92053778322642
+custom_lexical_fulltext_temporal_citation,temporal_citation,raw,outputs/custom_lexical_fulltext_temporal_citation/snapshot-1-train/run.txt,0.3932341504767556,0.5733969539713911,0.3168518322465348,0.7665469767811617,0.92053778322642
 official_pyterrier_temporal_citation,temporal_citation,raw,outputs\official_pyterrier_temporal_citation\snapshot-1-train\run.txt,0.00561341018245613,0.19494683738431118,0.009027409723246173,0.030374051742713005,0.856086684751824
 official_pyterrier_temporal,temporal,raw,outputs\official_pyterrier_temporal\snapshot-1-train\run.txt,0.005534833617349991,0.1947929079705516,0.008898708635034683,0.030374051742713005,0.856086684751824

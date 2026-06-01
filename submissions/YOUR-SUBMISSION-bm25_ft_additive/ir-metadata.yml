@@ -1,0 +1,38 @@
+tag: bm25_ft_additive
+actor:
+  team: GLHF
+research goal:
+  description: |
+    This run targets CLEF LongEval 2026 Task 1 (LongEval-Sci).
+    The system uses full-text BM25 as the first-stage ranker and then
+    applies an additive temporal-citation overlay to adjust document scores.
+    The goal is to preserve a strong lexical baseline while injecting
+    temporal and citation evidence directly into the ranking scores.
+platform:
+  software:
+    libraries:
+      - python==3.12.7
+      - python-terrier==1.0.4
+      - ir-datasets-longeval>=0.0.12
+      - numpy==2.4.4
+      - pyyaml==6.0.3
+implementation:
+  source:
+    repository: https://github.com/WiJoWill/longeval2026task1
+data:
+  training data:
+    - name: longeval-sci
+    - name: snapshot-1 train development split
+method:
+  automatic: true
+  indexing:
+    tokenizer: Terrier tokeniser via PyTerrier
+    stemmer: Porter
+    stopwords: Terrier default
+  retrieval:
+    - name: bm25_fulltext_with_additive_temporal_citation_overlay
+      lexical: true
+      deep_neural_model: false
+      sparse_neural_model: false
+      dense_neural_model: false
+      single_stage_retrieval: false

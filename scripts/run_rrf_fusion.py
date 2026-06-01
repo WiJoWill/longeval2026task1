@@ -58,7 +58,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Fuse existing run files with Reciprocal Rank Fusion.")
     parser.add_argument("--run-name", required=True, help="Name for the fused run and output folder.")
     parser.add_argument("--input-run", action="append", required=True, help="Input run file. Repeat for multiple runs.")
-    parser.add_argument("--config", default="configs/official_pyterrier.yaml", help="Config used for dataset/evaluation context.")
+    parser.add_argument("--config", default="configs/base/official_pyterrier.yaml", help="Config used for dataset/evaluation context.")
     parser.add_argument("--snapshot-id", default="snapshot-1", help="Snapshot id to associate with this fused run.")
     parser.add_argument("--train-snapshot1", action="store_true", help="Evaluate against snapshot-1 train qrels.")
     parser.add_argument("--qrels-variant", default="dctr", choices=["dctr", "raw"], help="Qrels variant for train mode.")

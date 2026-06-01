@@ -2,6 +2,16 @@
 
 This repository is our working platform for **CLEF LongEval 2026 Task 1: LongEval-Sci**.
 
+## Repository Layout
+
+- `src/` - importable project code
+- `scripts/` - runnable entry points and report builders
+- `configs/` - experiment configs and shared defaults
+- `tests/` - unit and integration tests
+- `adaptive_monitor/` - monitoring and update-policy experiments
+- `documents/` - paper source and LaTeX artifacts
+- `outputs/` - baseline runs and reports
+
 The project is organized around a simple development protocol:
 
 - use **`snapshot-1 train`** as the main supervised development split
@@ -16,11 +26,11 @@ Official references:
 
 Useful project notes:
 
-- [MODEL_OVERVIEW.md](c:/Users/Will/Documents/longEval2026task1/MODEL_OVERVIEW.md)
-- [TEMPORAL_FEATURES_DESIGN.md](c:/Users/Will/Documents/longEval2026task1/TEMPORAL_FEATURES_DESIGN.md)
-- [TEMPORAL_CITATION_FEATURES.md](c:/Users/Will/Documents/longEval2026task1/TEMPORAL_CITATION_FEATURES.md)
-- [TEMPORAL_METRICS.md](c:/Users/Will/Documents/longEval2026task1/TEMPORAL_METRICS.md)
-- [MIGRATION.md](c:/Users/Will/Documents/longEval2026task1/MIGRATION.md)
+- [MODEL_OVERVIEW.md](MODEL_OVERVIEW.md)
+- [TEMPORAL_FEATURES_DESIGN.md](TEMPORAL_FEATURES_DESIGN.md)
+- [TEMPORAL_CITATION_FEATURES.md](TEMPORAL_CITATION_FEATURES.md)
+- [TEMPORAL_METRICS.md](TEMPORAL_METRICS.md)
+- [MIGRATION.md](MIGRATION.md)
 
 ## Current Model Set
 
@@ -54,15 +64,15 @@ Citation-aware temporal models:
 - `custom_lexical_fulltext_temporal_citation`
 - `custom_title_abstract_rerank_temporal_citation`
 
-Design-level descriptions live in [MODEL_OVERVIEW.md](c:/Users/Will/Documents/longEval2026task1/MODEL_OVERVIEW.md).
+Design-level descriptions live in [MODEL_OVERVIEW.md](MODEL_OVERVIEW.md).
 
 ## Current Findings
 
 Main shareable reports:
 
-- [whole-train summary](c:/Users/Will/Documents/longEval2026task1/outputs/reports/all_models_train_snapshot1/summary.md)
-- [monthly growth summary](c:/Users/Will/Documents/longEval2026task1/outputs/reports/monthly_split/_summary/monthly_comparison.md)
-- [temporal change summary](c:/Users/Will/Documents/longEval2026task1/outputs/reports/monthly_split/_summary/temporal_change/temporal_change.md)
+- [whole-train summary](outputs/reports/all_models_train_snapshot1/summary.md)
+- [monthly growth summary](outputs/reports/monthly_split/_summary/monthly_comparison.md)
+- [temporal change summary](outputs/reports/monthly_split/_summary/temporal_change/temporal_change.md)
 
 Current picture:
 
@@ -84,8 +94,8 @@ Citation-feature takeaway from the current pass:
 
 Official reference note:
 
-- organizer-provided BM25 and Qwen train runs are kept under `outputs/baseline_reference/`
-- the report builders treat those as fixed anchors, so they do not need to be rerun just to refresh summaries
+- organizer-provided BM25 and Qwen train runs are treated as fixed anchors by the report builders
+- they do not need to be rerun just to refresh summaries
 
 ## Data and Evaluation Protocol
 
@@ -143,8 +153,8 @@ Purpose:
 
 Main outputs:
 
-- [summary.md](c:/Users/Will/Documents/longEval2026task1/outputs/reports/all_models_train_snapshot1/summary.md)
-- [comparison_all.csv](c:/Users/Will/Documents/longEval2026task1/outputs/reports/all_models_train_snapshot1/comparison_all.csv)
+- [summary.md](outputs/reports/all_models_train_snapshot1/summary.md)
+- [comparison_all.csv](outputs/reports/all_models_train_snapshot1/comparison_all.csv)
 
 ### 2. Monthly Split Evaluation
 
@@ -165,8 +175,8 @@ Current temporal field choice:
 
 Main outputs:
 
-- [monthly_comparison.md](c:/Users/Will/Documents/longEval2026task1/outputs/reports/monthly_split/_summary/monthly_comparison.md)
-- [monthly_comparison.csv](c:/Users/Will/Documents/longEval2026task1/outputs/reports/monthly_split/_summary/monthly_comparison.csv)
+- [monthly_comparison.md](outputs/reports/monthly_split/_summary/monthly_comparison.md)
+- [monthly_comparison.csv](outputs/reports/monthly_split/_summary/monthly_comparison.csv)
 
 ### 3. Temporal Change Evaluation
 
@@ -180,8 +190,8 @@ Current pivot:
 
 Main outputs:
 
-- [temporal_change.md](c:/Users/Will/Documents/longEval2026task1/outputs/reports/monthly_split/_summary/temporal_change/temporal_change.md)
-- [temporal_change.csv](c:/Users/Will/Documents/longEval2026task1/outputs/reports/monthly_split/_summary/temporal_change/temporal_change.csv)
+- [temporal_change.md](outputs/reports/monthly_split/_summary/temporal_change/temporal_change.md)
+- [temporal_change.csv](outputs/reports/monthly_split/_summary/temporal_change/temporal_change.csv)
 
 ## Canonical Scripts
 
@@ -230,41 +240,47 @@ python scripts/check_official_env.py
 Build needed indices for a config:
 
 ```powershell
-python scripts/build_indices.py --config configs/custom_lexical_fulltext.yaml
+python scripts/build_indices.py --config configs/base/custom_lexical_fulltext.yaml
+```
+
+Optional plotting utilities in `adaptive_monitor/` use `matplotlib`. Install it if you plan to regenerate plots:
+
+```powershell
+python -m pip install matplotlib
 ```
 
 Run one model on `snapshot-1 train`:
 
 ```powershell
-python scripts/run_baseline.py --config configs/custom_lexical_fulltext.yaml --train-snapshot1 --qrels-variant dctr
-python scripts/run_baseline.py --config configs/custom_title_abstract_rm3.yaml --train-snapshot1 --qrels-variant dctr
-python scripts/run_baseline.py --config configs/custom_title_abstract_rerank.yaml --train-snapshot1 --qrels-variant dctr
+python scripts/run_baseline.py --config configs/base/custom_lexical_fulltext.yaml --train-snapshot1 --qrels-variant dctr
+python scripts/run_baseline.py --config configs/base/custom_title_abstract_rm3.yaml --train-snapshot1 --qrels-variant dctr
+python scripts/run_baseline.py --config configs/base/custom_title_abstract_rerank.yaml --train-snapshot1 --qrels-variant dctr
 ```
 
 Apply temporal overlays without rebuilding retrieval:
 
 ```powershell
-python scripts/run_baseline.py --config configs/official_pyterrier_temporal.yaml --train-snapshot1 --qrels-variant dctr
-python scripts/run_baseline.py --config configs/official_pyterrier_dense_temporal.yaml --train-snapshot1 --qrels-variant dctr
-python scripts/run_baseline.py --config configs/custom_lexical_fulltext_temporal.yaml --train-snapshot1 --qrels-variant dctr
-python scripts/run_baseline.py --config configs/custom_title_abstract_rm3_temporal.yaml --train-snapshot1 --qrels-variant dctr
-python scripts/run_baseline.py --config configs/custom_title_abstract_rerank_temporal.yaml --train-snapshot1 --qrels-variant dctr
+python scripts/run_baseline.py --config configs/temporal/official_pyterrier_temporal.yaml --train-snapshot1 --qrels-variant dctr
+python scripts/run_baseline.py --config configs/temporal/official_pyterrier_dense_temporal.yaml --train-snapshot1 --qrels-variant dctr
+python scripts/run_baseline.py --config configs/temporal/custom_lexical_fulltext_temporal.yaml --train-snapshot1 --qrels-variant dctr
+python scripts/run_baseline.py --config configs/temporal/custom_title_abstract_rm3_temporal.yaml --train-snapshot1 --qrels-variant dctr
+python scripts/run_baseline.py --config configs/temporal/custom_title_abstract_rerank_temporal.yaml --train-snapshot1 --qrels-variant dctr
 ```
 
 Apply citation-aware temporal overlays on top of existing train runs:
 
 ```powershell
-python scripts/run_temporal_overlay.py --config configs/official_pyterrier_temporal_citation.yaml --input-run outputs/official_pyterrier/snapshot-1-train/run.txt --train-snapshot1 --qrels-variant dctr
-python scripts/run_temporal_overlay.py --config configs/custom_lexical_fulltext_temporal_citation.yaml --input-run outputs/custom_lexical_fulltext/snapshot-1-train/run.txt --train-snapshot1 --qrels-variant dctr
-python scripts/run_temporal_overlay.py --config configs/custom_title_abstract_rerank_temporal_citation.yaml --input-run outputs/custom_title_abstract_rerank/snapshot-1-train/run.txt --train-snapshot1 --qrels-variant dctr
+python scripts/run_temporal_overlay.py --config configs/temporal/official_pyterrier_temporal_citation.yaml --input-run outputs/official_pyterrier/snapshot-1-train/run.txt --train-snapshot1 --qrels-variant dctr
+python scripts/run_temporal_overlay.py --config configs/temporal/custom_lexical_fulltext_temporal_citation.yaml --input-run outputs/custom_lexical_fulltext/snapshot-1-train/run.txt --train-snapshot1 --qrels-variant dctr
+python scripts/run_temporal_overlay.py --config configs/temporal/custom_title_abstract_rerank_temporal_citation.yaml --input-run outputs/custom_title_abstract_rerank/snapshot-1-train/run.txt --train-snapshot1 --qrels-variant dctr
 ```
 
 Then evaluate those citation-aware temporal runs with the same monthly and temporal-change pipeline:
 
 ```powershell
-python scripts/run_snapshot1_monthly_eval.py --config configs/official_pyterrier_temporal_citation.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
-python scripts/run_snapshot1_monthly_eval.py --config configs/custom_lexical_fulltext_temporal_citation.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
-python scripts/run_snapshot1_monthly_eval.py --config configs/custom_title_abstract_rerank_temporal_citation.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
+python scripts/run_snapshot1_monthly_eval.py --config configs/temporal/official_pyterrier_temporal_citation.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
+python scripts/run_snapshot1_monthly_eval.py --config configs/temporal/custom_lexical_fulltext_temporal_citation.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
+python scripts/run_snapshot1_monthly_eval.py --config configs/temporal/custom_title_abstract_rerank_temporal_citation.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
 python scripts/build_all_models_train_report.py
 python scripts/build_monthly_split_summary.py
 python scripts/build_temporal_change_report.py
@@ -289,11 +305,11 @@ python scripts/build_temporal_change_report.py
 Run monthly split evaluation on existing runs:
 
 ```powershell
-python scripts/run_snapshot1_monthly_eval.py --config configs/official_pyterrier.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
-python scripts/run_snapshot1_monthly_eval.py --config configs/official_pyterrier_dense.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
-python scripts/run_snapshot1_monthly_eval.py --config configs/custom_lexical_fulltext.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
-python scripts/run_snapshot1_monthly_eval.py --config configs/custom_title_abstract_rm3.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
-python scripts/run_snapshot1_monthly_eval.py --config configs/custom_title_abstract_rerank.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
+python scripts/run_snapshot1_monthly_eval.py --config configs/base/official_pyterrier.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
+python scripts/run_snapshot1_monthly_eval.py --config configs/base/official_pyterrier_dense.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
+python scripts/run_snapshot1_monthly_eval.py --config configs/base/custom_lexical_fulltext.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
+python scripts/run_snapshot1_monthly_eval.py --config configs/base/custom_title_abstract_rm3.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
+python scripts/run_snapshot1_monthly_eval.py --config configs/base/custom_title_abstract_rerank.yaml --plan configs/plans/snapshot1_monthly_eval.yaml --qrels-variant dctr --reuse-existing-run
 ```
 
 Then rebuild the monthly and temporal-change summaries:
@@ -335,7 +351,7 @@ For train and month-based evaluation:
 
 For a quick teammate-oriented walkthrough, use:
 
-- [scripts/pipeline.ipynb](c:/Users/Will/Documents/longEval2026task1/scripts/pipeline.ipynb)
+- [scripts/pipeline.ipynb](scripts/pipeline.ipynb)
 
 It is designed as a catch-up notebook for:
 
